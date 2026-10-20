@@ -39,7 +39,7 @@ The simplest way, with nothing to install:
 
 1. Download the file for your skill from the [latest release](https://github.com/3orionkings/litigation-writing/releases/latest). Each skill has its own file, for example `litigation-pleadings.zip`. You do not need to open it.
 2. In Claude, open **Settings**, look for **Skills** (it may sit under **Capabilities**), and choose **Upload skill**. Select the file you downloaded.
-3. Repeat for any other skills you want. From then on, Claude will use the right skill when you ask for that kind of document, or you can name it ("use the litigation-pleadings skill").
+3. Repeat for any other skills you want. From then on, Claude will pick the matching skill whenever you ask for that kind of document, or you can name it ("use the litigation-pleadings skill").
 
 If you do not see Skills in your settings, your plan or your organisation's settings may not include it yet. Use the **Project** method in "Any other AI assistant" below instead: it works in Claude too.
 
