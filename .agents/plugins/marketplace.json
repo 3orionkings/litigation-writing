@@ -1,0 +1,20 @@
+{
+  "name": "litigation-writing",
+  "interface": {
+    "displayName": "Litigation Writing"
+  },
+  "plugins": [
+    {
+      "name": "litigation-writing",
+      "source": {
+        "source": "local",
+        "path": "./plugins/litigation-writing"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

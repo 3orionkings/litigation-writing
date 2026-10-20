@@ -1,0 +1,34 @@
+{
+  "name": "litigation-writing",
+  "family": "procedural",
+  "base": {
+    "numbered_paragraphs": false,
+    "words": {"min": 30, "max": 6000},
+    "require": [],
+    "forbid": []
+  },
+  "variants": {
+    "summons": {
+      "description": "Hong Kong summons or US notice of motion or motion",
+      "require": [
+        {"id": "call", "label": "the call to attend or the notice of hearing", "any": ["LET ALL PARTIES CONCERNED ATTEND", "PLEASE TAKE NOTICE", "\\bwill (?:and hereby does )?move\\b", "\\bmoves? (?:the|this) Court\\b"]},
+        {"id": "costs", "label": "a costs order sought", "any": ["\\bcosts\\b"], "severity": "soft", "jurisdictions": ["hk"]},
+        {"id": "taken-out", "label": "who took the summons out", "any": ["taken out by"], "severity": "soft", "jurisdictions": ["hk"]}
+      ]
+    },
+    "draft-order": {
+      "description": "Hong Kong draft order or US proposed order",
+      "require": [
+        {"id": "ordered", "label": "the operative words (\"IT IS ORDERED\")", "any": ["IT IS (?:HEREBY )?ORDERED"]}
+      ]
+    },
+    "package": {
+      "description": "the package plan: documents, order, skills, shared fields",
+      "family": "procedural",
+      "first_person_plural": "allow",
+      "require": [
+        {"id": "plan", "label": "a list of documents to draft", "any": ["\\bdraft in this order\\b", "^\\s*\\d+\\.\\s+\\S"]}
+      ]
+    }
+  }
+}

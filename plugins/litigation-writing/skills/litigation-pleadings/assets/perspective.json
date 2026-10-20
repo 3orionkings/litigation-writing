@@ -1,0 +1,63 @@
+{
+  "description": "Who is speaking in each family (see references/voice.md). first_person and first_person_plural are forbid, allow, soft or require. case_citations is forbid or allow. Rules use the format in docs/style-json.md.",
+  "families": {
+    "pleadings": {
+      "first_person": "forbid",
+      "first_person_plural": "forbid",
+      "case_citations": "forbid",
+      "forbid": [
+        {"id": "submits", "label": "advocacy (\"It is submitted\") in a pleading", "any": ["\\bit is (?:respectfully |humbly )?submitted\\b"], "where": "body"},
+        {"id": "court-invited", "label": "addressing the court as in a submission", "any": ["\\bthe Court is (?:respectfully )?(?:invited|asked|urged)\\b"], "where": "body"},
+        {"id": "rhetorical-question", "label": "a rhetorical question in a pleading", "any": ["[a-z]\\?\\s*$"], "where": "body", "severity": "soft", "skip_quotes": true}
+      ]
+    },
+    "evidence": {
+      "first_person": "require",
+      "case_citations": "forbid",
+      "forbid": [
+        {"id": "submits", "label": "a submission (\"It is submitted\") in evidence", "any": ["\\bit is (?:respectfully |humbly )?submitted\\b"], "where": "body"},
+        {"id": "court-invited", "label": "counsel's address to the court in evidence", "any": ["\\bthe Court is (?:respectfully )?(?:invited|asked|urged)\\b"], "where": "body"},
+        {"id": "counsel-signposts", "label": "counsel's signposts in a witness's evidence", "any": ["\\ba fortiori\\b", "\\bsuffice (?:it )?to (?:say|note)\\b", "\\bin gist\\b", "\\bplainly and obviously\\b"], "where": "body"},
+        {"id": "legal-test", "label": "a legal test stated in the witness's voice", "any": ["\\bthe (?:legal )?test (?:is|for)\\b", "\\bthe (?:applicable|relevant) (?:legal )?principles? (?:is|are)\\b"], "where": "body", "severity": "soft"}
+      ]
+    },
+    "submissions": {
+      "first_person": "forbid",
+      "first_person_plural": "soft",
+      "case_citations": "allow",
+      "forbid": []
+    },
+    "advice": {
+      "first_person": "require",
+      "case_citations": "allow",
+      "forbid": [
+        {"id": "numeric-odds", "label": "a numeric chance of success (use the verbal scale)", "any": ["\\b\\d{1,3}\\s?(?:%|per ?cent)[^.\\n]{0,50}\\b(?:chance|prospects?|likelihood|likely|success|probability)\\b", "\\b(?:chance|prospects?|likelihood|probability|odds) of (?:success )?[^.\\n]{0,30}\\b\\d{1,3}\\s?(?:%|per ?cent)", "\\b\\d{1,2} ?(?:in|out of) ?\\d{1,3} chance\\b"]},
+        {"id": "imperative-to-client", "label": "an instruction aimed at the client (\"you should\")", "any": ["\\byou (?:should|must|need to|ought to|have to)\\b"], "where": "body"}
+      ]
+    },
+    "correspondence": {
+      "first_person": "soft",
+      "first_person_plural": "allow",
+      "case_citations": "allow",
+      "forbid": [
+        {"id": "submits", "label": "advocacy in a letter (\"It is submitted\")", "any": ["\\bit is (?:respectfully )?submitted\\b"], "severity": "soft"}
+      ]
+    },
+    "procedural": {
+      "first_person": "forbid",
+      "first_person_plural": "forbid",
+      "case_citations": "forbid",
+      "forbid": [
+        {"id": "submits", "label": "argument in a procedural paper", "any": ["\\bit is (?:respectfully )?submitted\\b"], "where": "body"}
+      ]
+    },
+    "chronology": {
+      "first_person": "forbid",
+      "first_person_plural": "soft",
+      "case_citations": "allow",
+      "forbid": [
+        {"id": "argument", "label": "argument in a chronology", "any": ["\\bit is (?:respectfully )?submitted\\b", "\\bthe Court is (?:respectfully )?invited\\b"], "severity": "soft"}
+      ]
+    }
+  }
+}

@@ -1,0 +1,760 @@
+{
+ "description": "Fields each skill and variant needs. status keys: \"*\", \"<skill>\", \"<skill>:<variant>\", and either of the last two with \"@<jurisdiction code>\" or \"@<group>\" (hk or us). The most specific key wins. Values: R required, O optional, L filled in later, - not used. placeholder is the label to use when the value is missing.",
+ "groups": [
+  "Matter and court",
+  "Parties",
+  "Tribunal and hearing",
+  "The document",
+  "Procedure",
+  "Evidence and bundles",
+  "Authorities",
+  "Facts and money",
+  "Verification and formalities",
+  "Family block",
+  "Enforcement block",
+  "Advice block",
+  "Letter block",
+  "Speaking-note block"
+ ],
+ "fields": [
+  {
+   "id": "jurisdiction",
+   "group": "Matter and court",
+   "holds": "Profile code: hk, us-federal, ny, ca, wa, de-superior, de-chancery. No default: ask.",
+   "placeholder": null,
+   "status": {
+    "*": "R"
+   }
+  },
+  {
+   "id": "court",
+   "group": "Matter and court",
+   "holds": "The court, division and level (for example first-instance master, judge, appeal court)",
+   "placeholder": "[court]",
+   "status": {
+    "*": "R",
+    "litigation-advice": "O",
+    "litigation-correspondence": "O"
+   }
+  },
+  {
+   "id": "case_number",
+   "group": "Matter and court",
+   "holds": "The case or action number in the court's format",
+   "placeholder": "[case number]",
+   "status": {
+    "*": "R",
+    "litigation-pleadings:claim": "L",
+    "litigation-advice": "O",
+    "litigation-correspondence:demand": "O",
+    "litigation-correspondence:proposal": "O",
+    "litigation-writing:package": "O"
+   }
+  },
+  {
+   "id": "lower_court_ref",
+   "group": "Matter and court",
+   "holds": "The decision under appeal: court, number, judge, date",
+   "placeholder": "[case number]",
+   "status": {
+    "*": "-",
+    "litigation-submissions:appeal-leave": "R",
+    "litigation-submissions:appeal": "R",
+    "litigation-evidence:procedural": "O"
+   }
+  },
+  {
+   "id": "related_proceedings",
+   "group": "Matter and court",
+   "holds": "Parallel or earlier proceedings, with the defined names used for them",
+   "placeholder": "[case number]",
+   "status": {
+    "*": "O"
+   }
+  },
+  {
+   "id": "parties",
+   "group": "Parties",
+   "holds": "Each party: name, role (from the placeholder list), abbreviation, pronoun, individual or company",
+   "placeholder": "[Party]",
+   "status": {
+    "*": "R"
+   }
+  },
+  {
+   "id": "client_party",
+   "group": "Parties",
+   "holds": "Which party the document is for",
+   "placeholder": "[Party]",
+   "status": {
+    "*": "R"
+   }
+  },
+  {
+   "id": "party_particulars",
+   "group": "Parties",
+   "holds": "For a claim pleading: incorporation and registered office, or residence, occupation and capacity",
+   "placeholder": "[address]",
+   "status": {
+    "*": "-",
+    "litigation-pleadings:claim": "R",
+    "litigation-pleadings:counterclaim": "R",
+    "litigation-pleadings": "O",
+    "litigation-advice": "O"
+   }
+  },
+  {
+   "id": "non_parties",
+   "group": "Parties",
+   "holds": "Third parties by short name or role",
+   "placeholder": "[name]",
+   "status": {
+    "*": "O"
+   }
+  },
+  {
+   "id": "tribunal",
+   "group": "Tribunal and hearing",
+   "holds": "The judge, master or registrar: title and name",
+   "placeholder": "[judge]",
+   "status": {
+    "*": "-",
+    "litigation-submissions": "L",
+    "litigation-submissions:authorities-list": "L",
+    "litigation-submissions:chronology": "O",
+    "litigation-writing:summons": "L",
+    "litigation-evidence": "O",
+    "litigation-pleadings": "-"
+   }
+  },
+  {
+   "id": "hearing_date",
+   "group": "Tribunal and hearing",
+   "holds": "Date of the hearing or trial",
+   "placeholder": "[date]",
+   "status": {
+    "*": "-",
+    "litigation-submissions": "R",
+    "litigation-submissions:chronology": "O",
+    "litigation-submissions:costs": "O",
+    "litigation-writing:summons": "L",
+    "litigation-writing:package": "O"
+   }
+  },
+  {
+   "id": "hearing_time",
+   "group": "Tribunal and hearing",
+   "holds": "Time of the hearing",
+   "placeholder": "[time]",
+   "status": {
+    "*": "-",
+    "litigation-submissions": "L",
+    "litigation-writing:summons": "L"
+   }
+  },
+  {
+   "id": "hearing_type",
+   "group": "Tribunal and hearing",
+   "holds": "The kind of hearing (call-over, case management, trial, appeal) and its ordinal",
+   "placeholder": "[document title]",
+   "status": {
+    "*": "-",
+    "litigation-submissions:hearing-note": "R",
+    "litigation-submissions": "O"
+   }
+  },
+  {
+   "id": "time_reserved",
+   "group": "Tribunal and hearing",
+   "holds": "Time reserved or estimated",
+   "placeholder": "[period]",
+   "status": {
+    "*": "-",
+    "litigation-writing:summons": "O",
+    "litigation-submissions:hearing-note": "O",
+    "litigation-submissions:trial-opening": "O"
+   }
+  },
+  {
+   "id": "direction_source",
+   "group": "Tribunal and hearing",
+   "holds": "The direction under which the paper is filed: who made it, when, which paragraph",
+   "placeholder": "[date]",
+   "status": {
+    "*": "-",
+    "litigation-submissions": "O",
+    "litigation-submissions:costs": "R"
+   }
+  },
+  {
+   "id": "document_title",
+   "group": "The document",
+   "holds": "Title of the document, with its ordinal and purpose line where it is one of a sequence",
+   "placeholder": "[document title]",
+   "status": {
+    "*": "R"
+   }
+  },
+  {
+   "id": "document_ordinal",
+   "group": "The document",
+   "holds": "Ordinal of the document in its sequence (1st affirmation, 2nd submissions)",
+   "placeholder": "[number]",
+   "status": {
+    "*": "O",
+    "litigation-evidence": "R",
+    "litigation-submissions:reply": "R"
+   }
+  },
+  {
+   "id": "signatories",
+   "group": "The document",
+   "holds": "Who signs: counsel and their role line, solicitors' firm block, or the party in person",
+   "placeholder": "[counsel-name]",
+   "status": {
+    "*": "L"
+   }
+  },
+  {
+   "id": "signing_date",
+   "group": "The document",
+   "holds": "Date of signing",
+   "placeholder": "[date]",
+   "status": {
+    "*": "L"
+   }
+  },
+  {
+   "id": "distribution",
+   "group": "The document",
+   "holds": "Distribution lines (to the court's clerk, to the other parties' lawyers)",
+   "placeholder": "[solicitors-firm]",
+   "status": {
+    "*": "-",
+    "litigation-submissions": "O",
+    "litigation-writing:summons": "O"
+   }
+  },
+  {
+   "id": "applications",
+   "group": "Procedure",
+   "holds": "Each application before the court: who applies, date, defined term, rule, relief sought (1)(2)(3), status",
+   "placeholder": "[date]",
+   "status": {
+    "*": "-",
+    "litigation-submissions": "R",
+    "litigation-submissions:trial-opening": "O",
+    "litigation-submissions:trial-closing": "O",
+    "litigation-submissions:authorities-list": "O",
+    "litigation-submissions:chronology": "O",
+    "litigation-submissions:appeal": "O",
+    "litigation-evidence:affirmation": "R",
+    "litigation-evidence:procedural": "R",
+    "litigation-evidence:reply-affirmation": "R",
+    "litigation-evidence:enforcement": "O",
+    "litigation-writing:summons": "R",
+    "litigation-writing:package": "R",
+    "litigation-pleadings:amendment": "O"
+   }
+  },
+  {
+   "id": "orders_sought",
+   "group": "Procedure",
+   "holds": "The orders sought, drafted as order paragraphs: primary, alternative, in any event",
+   "placeholder": "[document title]",
+   "status": {
+    "*": "-",
+    "litigation-submissions": "R",
+    "litigation-submissions:authorities-list": "-",
+    "litigation-submissions:chronology": "-",
+    "litigation-submissions:speaking-note": "O",
+    "litigation-evidence:affirmation": "R",
+    "litigation-evidence:procedural": "R",
+    "litigation-evidence:enforcement": "R",
+    "litigation-writing:summons": "R",
+    "litigation-writing:draft-order": "R",
+    "litigation-writing:package": "R"
+   }
+  },
+  {
+   "id": "unless_order_terms",
+   "group": "Procedure",
+   "holds": "A fallback unless order: days, deadline date and hour, consequence, sums, costs",
+   "placeholder": "[date]",
+   "status": {
+    "*": "-",
+    "litigation-submissions:hearing-note": "O",
+    "litigation-submissions:speaking-note": "O",
+    "litigation-submissions:skeleton": "O",
+    "litigation-writing:draft-order": "O"
+   }
+  },
+  {
+   "id": "costs_position",
+   "group": "Procedure",
+   "holds": "Costs sought or resisted: basis, assessment, certificate for counsel, conduct reasons",
+   "placeholder": "[sum]",
+   "status": {
+    "*": "-",
+    "litigation-submissions": "O",
+    "litigation-submissions:skeleton": "R",
+    "litigation-submissions:costs": "R",
+    "litigation-writing:summons": "O",
+    "litigation-writing:draft-order": "O",
+    "litigation-correspondence:offer": "O"
+   }
+  },
+  {
+   "id": "prior_orders",
+   "group": "Procedure",
+   "holds": "Earlier orders relied on: who made them, when, the paragraphs and terms",
+   "placeholder": "[date]",
+   "status": {
+    "*": "O",
+    "litigation-submissions:hearing-note": "R",
+    "litigation-submissions:costs": "R",
+    "litigation-evidence:procedural": "R",
+    "litigation-evidence:enforcement": "R",
+    "litigation-pleadings": "-"
+   }
+  },
+  {
+   "id": "procedural_history",
+   "group": "Procedure",
+   "holds": "Dated procedural steps, with computed spans where delay matters",
+   "placeholder": "[date]",
+   "status": {
+    "*": "O",
+    "litigation-submissions:hearing-note": "R",
+    "litigation-submissions:chronology": "R",
+    "litigation-evidence:procedural": "R",
+    "litigation-pleadings": "-"
+   }
+  },
+  {
+   "id": "pleadings_in_play",
+   "group": "Procedure",
+   "holds": "The pleadings: titles, dates, verification, which draft is live",
+   "placeholder": "[document title]",
+   "status": {
+    "*": "O",
+    "litigation-submissions:trial-opening": "R",
+    "litigation-pleadings:amendment": "R",
+    "litigation-advice:pleadings": "R"
+   }
+  },
+  {
+   "id": "answered_document",
+   "group": "Procedure",
+   "holds": "The other side's paper being answered: title, date, and its paragraph label ([D§n])",
+   "placeholder": "[document title]",
+   "status": {
+    "*": "-",
+    "litigation-submissions:reply": "R",
+    "litigation-submissions:speaking-note": "O",
+    "litigation-evidence:reply-affirmation": "R",
+    "litigation-pleadings:defence": "R",
+    "litigation-pleadings:reply": "R",
+    "litigation-pleadings:counterclaim": "R",
+    "litigation-correspondence:particulars-request": "R"
+   }
+  },
+  {
+   "id": "grounds_of_appeal",
+   "group": "Procedure",
+   "holds": "Grounds and sub-grounds of appeal, in the order to be argued",
+   "placeholder": "[number]",
+   "status": {
+    "*": "-",
+    "litigation-submissions:appeal-leave": "R",
+    "litigation-submissions:appeal": "R"
+   }
+  },
+  {
+   "id": "issues_list",
+   "group": "Procedure",
+   "holds": "The issues for decision, as questions",
+   "placeholder": "[number]",
+   "status": {
+    "*": "-",
+    "litigation-submissions:trial-opening": "R",
+    "litigation-submissions:trial-closing": "R",
+    "litigation-advice": "R"
+   }
+  },
+  {
+   "id": "claim_issue_date",
+   "group": "Procedure",
+   "holds": "The date the writ or originating process was issued (Hong Kong O.18 r.15(3))",
+   "placeholder": "[date]",
+   "status": {
+    "*": "-",
+    "litigation-pleadings:claim@hk": "R",
+    "litigation-pleadings:counterclaim@hk": "O"
+   }
+  },
+  {
+   "id": "bundle_scheme",
+   "group": "Evidence and bundles",
+   "holds": "The bundle reference scheme and its legend line; [Bundle ref] until paginated",
+   "placeholder": "[Bundle ref]",
+   "status": {
+    "*": "-",
+    "litigation-submissions": "R",
+    "litigation-submissions:authorities-list": "-",
+    "litigation-submissions:speaking-note": "O",
+    "litigation-evidence": "O",
+    "litigation-advice": "O"
+   }
+  },
+  {
+   "id": "affirmations",
+   "group": "Evidence and bundles",
+   "holds": "Evidence already filed: party, ordinal, deponent, date, short tag",
+   "placeholder": "[document title]",
+   "status": {
+    "*": "-",
+    "litigation-submissions": "O",
+    "litigation-submissions:skeleton": "R",
+    "litigation-evidence:reply-affirmation": "R",
+    "litigation-evidence": "O"
+   }
+  },
+  {
+   "id": "exhibits",
+   "group": "Evidence and bundles",
+   "holds": "Exhibits: code scheme, date, description, pages; [exhibit] until assigned",
+   "placeholder": "[exhibit]",
+   "status": {
+    "*": "-",
+    "litigation-evidence": "R",
+    "litigation-evidence:witness-statement": "O"
+   }
+  },
+  {
+   "id": "witnesses",
+   "group": "Evidence and bundles",
+   "holds": "Witnesses and their statements",
+   "placeholder": "[witness]",
+   "status": {
+    "*": "-",
+    "litigation-submissions:trial-opening": "R",
+    "litigation-submissions:trial-closing": "R"
+   }
+  },
+  {
+   "id": "experts",
+   "group": "Evidence and bundles",
+   "holds": "Expert evidence: role, discipline, report dates",
+   "placeholder": "[expert]",
+   "status": {
+    "*": "-",
+    "litigation-submissions:trial-opening": "O",
+    "litigation-submissions:trial-closing": "O",
+    "litigation-submissions:skeleton": "O"
+   }
+  },
+  {
+   "id": "transcripts",
+   "group": "Evidence and bundles",
+   "holds": "Transcript references: day, page, line",
+   "placeholder": "[Bundle ref]",
+   "status": {
+    "*": "-",
+    "litigation-submissions:trial-closing": "O",
+    "litigation-submissions:appeal": "O",
+    "litigation-submissions:appeal-leave": "O"
+   }
+  },
+  {
+   "id": "authorities",
+   "group": "Authorities",
+   "holds": "Each authority the user supplies: name, citation, pinpoint, bundle tag, verified and its source",
+   "placeholder": "[authority needed: <proposition>]",
+   "status": {
+    "*": "-",
+    "litigation-submissions": "R",
+    "litigation-submissions:hearing-note": "O",
+    "litigation-submissions:speaking-note": "O",
+    "litigation-submissions:chronology": "-",
+    "litigation-advice": "R",
+    "litigation-writing:package": "O"
+   }
+  },
+  {
+   "id": "tag_scheme",
+   "group": "Authorities",
+   "holds": "The authority tag scheme ([P#n], [Authority#n]) and the numbering offset in a sequence",
+   "placeholder": "[number]",
+   "status": {
+    "*": "-",
+    "litigation-submissions": "O",
+    "litigation-submissions:authorities-list": "R"
+   }
+  },
+  {
+   "id": "statutory_provisions",
+   "group": "Authorities",
+   "holds": "Statutes and rules relied on, as the user gives them",
+   "placeholder": "[statutory provision]",
+   "status": {
+    "*": "O",
+    "litigation-writing:summons": "R",
+    "litigation-correspondence:offer": "R",
+    "litigation-correspondence:particulars-request": "O"
+   }
+  },
+  {
+   "id": "defined_terms",
+   "group": "Facts and money",
+   "holds": "Defined terms: term, meaning, first use",
+   "placeholder": "[document title]",
+   "status": {
+    "*": "O",
+    "litigation-pleadings": "R"
+   }
+  },
+  {
+   "id": "key_event_dates",
+   "group": "Facts and money",
+   "holds": "The dates of the events the document relies on",
+   "placeholder": "[date]",
+   "status": {
+    "*": "R",
+    "litigation-submissions:authorities-list": "-",
+    "litigation-correspondence:covering": "O"
+   }
+  },
+  {
+   "id": "sums",
+   "group": "Facts and money",
+   "holds": "Sums with currency, as the user gives them",
+   "placeholder": "[sum]",
+   "status": {
+    "*": "O",
+    "litigation-pleadings:claim": "R",
+    "litigation-evidence:enforcement": "R",
+    "litigation-correspondence:demand": "R",
+    "litigation-correspondence:offer": "R"
+   }
+  },
+  {
+   "id": "interest_terms",
+   "group": "Facts and money",
+   "holds": "Interest: rate, from, to, basis ([statutory provision] or contract)",
+   "placeholder": "[rate]",
+   "status": {
+    "*": "O",
+    "litigation-evidence:enforcement": "R"
+   }
+  },
+  {
+   "id": "agreements",
+   "group": "Facts and money",
+   "holds": "Agreements relied on: title, date, parties, the clauses relied on and their terms",
+   "placeholder": "[document title]",
+   "status": {
+    "*": "O"
+   }
+  },
+  {
+   "id": "property_assets",
+   "group": "Facts and money",
+   "holds": "Property or assets in issue: description and identifiers",
+   "placeholder": "[property description]",
+   "status": {
+    "*": "O"
+   }
+  },
+  {
+   "id": "verifier",
+   "group": "Verification and formalities",
+   "holds": "Who verifies a pleading and in what capacity (individual, director, solicitor, authorised signatory)",
+   "placeholder": "[name]",
+   "status": {
+    "*": "-",
+    "litigation-pleadings@hk": "R",
+    "litigation-pleadings@de-chancery": "R",
+    "litigation-pleadings@us": "O"
+   }
+  },
+  {
+   "id": "deponent",
+   "group": "Verification and formalities",
+   "holds": "The deponent or witness: name, address, role, capacity, authority to speak for a company, what they know first-hand",
+   "placeholder": "[deponent]",
+   "status": {
+    "*": "-",
+    "litigation-evidence": "R"
+   }
+  },
+  {
+   "id": "interpreter",
+   "group": "Verification and formalities",
+   "holds": "An interpreter where the deponent does not read English: name, firm, [language], interpreted or translated",
+   "placeholder": "[name]",
+   "status": {
+    "*": "-",
+    "litigation-evidence": "O",
+    "litigation-pleadings@hk": "O"
+   }
+  },
+  {
+   "id": "jurat",
+   "group": "Verification and formalities",
+   "holds": "Where, when and before whom the evidence is sworn or affirmed",
+   "placeholder": "[address]",
+   "status": {
+    "*": "-",
+    "litigation-evidence@hk": "L",
+    "litigation-evidence@de-superior": "L",
+    "litigation-evidence@de-chancery": "L"
+   }
+  },
+  {
+   "id": "backsheet_dates",
+   "group": "Verification and formalities",
+   "holds": "The Dated, Filed and Served slots (all three always present)",
+   "placeholder": "[date]",
+   "status": {
+    "*": "-",
+    "litigation-pleadings@hk": "L",
+    "litigation-evidence@hk": "L",
+    "litigation-submissions@hk": "O"
+   }
+  },
+  {
+   "id": "amendment",
+   "group": "Verification and formalities",
+   "holds": "The amendment: round, basis (without leave, by order, by consent), order-maker and date, legend, inserted and struck paragraphs",
+   "placeholder": "[date]",
+   "status": {
+    "*": "-",
+    "litigation-pleadings:amendment": "R"
+   }
+  },
+  {
+   "id": "family_facts",
+   "group": "Family block",
+   "holds": "Marriage, separation, proceedings history, children by [the Child] labels, carer and arrangements",
+   "placeholder": "[the Child]",
+   "status": {
+    "*": "O"
+   }
+  },
+  {
+   "id": "judgment",
+   "group": "Enforcement block",
+   "holds": "The judgment or order being enforced: date, sum, interest, costs",
+   "placeholder": "[sum]",
+   "status": {
+    "*": "-",
+    "litigation-evidence:enforcement": "R"
+   }
+  },
+  {
+   "id": "outstanding_sums",
+   "group": "Enforcement block",
+   "holds": "Sums outstanding as at a date, itemised",
+   "placeholder": "[sum]",
+   "status": {
+    "*": "-",
+    "litigation-evidence:enforcement": "R"
+   }
+  },
+  {
+   "id": "demand",
+   "group": "Enforcement block",
+   "holds": "The demand made and how it was served",
+   "placeholder": "[date]",
+   "status": {
+    "*": "-",
+    "litigation-evidence:enforcement": "R"
+   }
+  },
+  {
+   "id": "remedy_details",
+   "group": "Enforcement block",
+   "holds": "For the remedy sought: the property description, the bank and account, or the asset list",
+   "placeholder": "[property description]",
+   "status": {
+    "*": "-",
+    "litigation-evidence:enforcement": "R"
+   }
+  },
+  {
+   "id": "instructions",
+   "group": "Advice block",
+   "holds": "Who instructs, the date and form of instructions, the questions asked verbatim, the documents provided",
+   "placeholder": "[document title]",
+   "status": {
+    "*": "-",
+    "litigation-advice": "R"
+   }
+  },
+  {
+   "id": "unknowns",
+   "group": "Advice block",
+   "holds": "Information still missing that the advice depends on",
+   "placeholder": "[document title]",
+   "status": {
+    "*": "-",
+    "litigation-advice": "O"
+   }
+  },
+  {
+   "id": "letter_refs",
+   "group": "Letter block",
+   "holds": "Our reference, your reference, date, mode of delivery",
+   "placeholder": "[number]",
+   "status": {
+    "*": "-",
+    "litigation-correspondence": "L"
+   }
+  },
+  {
+   "id": "addressee",
+   "group": "Letter block",
+   "holds": "The firm or person written to and their address",
+   "placeholder": "[solicitors-firm]",
+   "status": {
+    "*": "-",
+    "litigation-correspondence": "R"
+   }
+  },
+  {
+   "id": "deadline",
+   "group": "Letter block",
+   "holds": "The date by which a reply or action is required",
+   "placeholder": "[date]",
+   "status": {
+    "*": "-",
+    "litigation-correspondence:demand": "R",
+    "litigation-correspondence:particulars-request": "R",
+    "litigation-correspondence:offer": "R",
+    "litigation-correspondence:proposal": "O"
+   }
+  },
+  {
+   "id": "letter_basis",
+   "group": "Letter block",
+   "holds": "Open, without prejudice, or without prejudice save as to costs",
+   "placeholder": "[document title]",
+   "status": {
+    "*": "-",
+    "litigation-correspondence:proposal": "R",
+    "litigation-correspondence:offer": "R"
+   }
+  },
+  {
+   "id": "anticipated_points",
+   "group": "Speaking-note block",
+   "holds": "Points the other side or the court may raise, with the scripted reply, and the limit of any concession",
+   "placeholder": "[document title]",
+   "status": {
+    "*": "-",
+    "litigation-submissions:speaking-note": "R"
+   }
+  }
+ ]
+}

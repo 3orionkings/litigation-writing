@@ -1,0 +1,18 @@
+[
+  {"name": "hk claim needs the writ date and a verifier", "skill": "litigation-pleadings", "variant": "claim", "jurisdiction": "hk",
+   "expect": {"claim_issue_date": "R", "verifier": "R", "party_particulars": "R", "case_number": "L", "jurisdiction": "R"}},
+  {"name": "us complaint: no writ date, verification optional", "skill": "litigation-pleadings", "variant": "claim", "jurisdiction": "us-federal",
+   "expect": {"claim_issue_date": "-", "verifier": "O"}},
+  {"name": "chancery pleadings need a verifier", "skill": "litigation-pleadings", "variant": "claim", "jurisdiction": "de-chancery",
+   "expect": {"verifier": "R"}},
+  {"name": "hk affirmation: deponent and exhibits required, jurat later", "skill": "litigation-evidence", "variant": "affirmation", "jurisdiction": "hk",
+   "expect": {"deponent": "R", "exhibits": "R", "jurat": "L", "orders_sought": "R"}},
+  {"name": "california declaration has no jurat", "skill": "litigation-evidence", "variant": "affirmation", "jurisdiction": "ca",
+   "expect": {"jurat": "-"}},
+  {"name": "skeleton: authorities and hearing required, time later", "skill": "litigation-submissions", "variant": "skeleton", "jurisdiction": "ny",
+   "expect": {"authorities": "R", "hearing_date": "R", "hearing_time": "L", "bundle_scheme": "R", "costs_position": "R"}},
+  {"name": "advice: instructions and issues, no hearing", "skill": "litigation-advice", "variant": "merits", "jurisdiction": "hk",
+   "expect": {"instructions": "R", "issues_list": "R", "hearing_date": "-", "authorities": "R"}},
+  {"name": "particulars request answers a pleading by a deadline", "skill": "litigation-correspondence", "variant": "particulars-request",
+   "jurisdiction": "hk", "expect": {"answered_document": "R", "deadline": "R", "addressee": "R"}}
+]

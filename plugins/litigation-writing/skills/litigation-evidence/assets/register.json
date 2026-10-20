@@ -1,0 +1,99 @@
+{
+  "description": "The register every family keeps (references/voice.md). Dashes are checked by built-in code; these rules add the tells. Rules use the format in docs/style-json.md. A rule may list \"families\" to apply only to those families.",
+  "dashes": true,
+  "bullets": "soft",
+  "forbid": [
+    {
+      "id": "underscore",
+      "label": "\"underscore\" (a machine-writing tell)",
+      "any": [
+        "\\bunderscor(?:e|es|ed|ing)\\b"
+      ],
+      "skip_quotes": true
+    },
+    {
+      "id": "only-be-described",
+      "label": "\"what can only be described as\"",
+      "any": [
+        "\\bwhat can only be described as\\b"
+      ],
+      "skip_quotes": true
+    },
+    {
+      "id": "important-to-note",
+      "label": "\"it is important to note\" or \"it is worth noting\"",
+      "any": [
+        "\\bit is (?:important|worth|crucial|vital) (?:to note|noting|to bear in mind)\\b"
+      ],
+      "skip_quotes": true
+    },
+    {
+      "id": "delve",
+      "label": "\"delve\"",
+      "any": [
+        "\\bdelv(?:e|es|ed|ing)\\b"
+      ],
+      "skip_quotes": true
+    },
+    {
+      "id": "imagery",
+      "label": "set-piece imagery",
+      "any": [
+        "\\bsword of damocles\\b",
+        "\\bcrown jewel\\b",
+        "\\bsandcastle\\b",
+        "\\btapestry\\b",
+        "\\btestament to\\b"
+      ],
+      "skip_quotes": true
+    },
+    {
+      "id": "catechism",
+      "label": "a question-and-answer catechism (\"Answer:\")",
+      "any": [
+        "^\\s*\\**answer\\s*:"
+      ],
+      "families": [
+        "submissions",
+        "advice",
+        "evidence",
+        "correspondence",
+        "chronology"
+      ]
+    },
+    {
+      "id": "connective-opener",
+      "label": "a paragraph opening on Moreover, Furthermore or Additionally",
+      "any": [
+        "^\\s*(?:\\d+(?:\\.\\d+)*\\.?\\s+|\\([a-z]{1,4}\\)\\s+)?(?:moreover|furthermore|additionally)\\b"
+      ],
+      "severity": "soft"
+    },
+    {
+      "id": "not-x-but-y",
+      "label": "a \"not just X but Y\" construction",
+      "any": [
+        "\\bnot (?:just|only|merely|simply) [^.;\\n]{1,60},? but\\b"
+      ],
+      "severity": "soft",
+      "skip_quotes": true
+    },
+    {
+      "id": "antithesis",
+      "label": "a \"This is not X; it is Y\" antithesis",
+      "any": [
+        "\\b(?:this|that|it) is not [^.;\\n]{1,60}; (?:it|this) is\\b"
+      ],
+      "severity": "soft",
+      "skip_quotes": true
+    },
+    {
+      "id": "abstract-label",
+      "label": "an abstract bold label opening a paragraph",
+      "any": [
+        "^\\s*(?:\\d+\\.\\s+)?\\*\\*(?:nature|rationale|basis|purpose|essence|scope|effect) (?:of|for) [^*]{1,40}:\\*\\*"
+      ],
+      "severity": "soft"
+    }
+  ]
+}

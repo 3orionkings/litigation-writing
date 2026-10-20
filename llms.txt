@@ -1,0 +1,27 @@
+# Litigation Writing
+
+> Six agent skills for drafting litigation documents for Hong Kong and US courts (federal, New York, California, Washington, Delaware Superior Court and Court of Chancery). Each skill is a folder of Markdown with a SKILL.md to follow. Choose one skill by the document the user needs, read its SKILL.md and the reference files it names in the same folder, ask for the jurisdiction and the missing facts, never invent a fact or an authority (use the placeholders in references/fields.md), and end the draft with a FIELDS TO COMPLETE table.
+
+How to use: pick the skill below, read its SKILL.md, then only the reference files it names for the variant and jurisdiction. If you can run Python, use scripts/litcheck.py in the same folder to list the fields a document needs and to check the draft. The shared references (fields, voice, authorities, matter file, jurisdictions) are identical in every skill.
+
+## Skills
+
+- [litigation-writing](https://raw.githubusercontent.com/3orionkings/litigation-writing/main/plugins/litigation-writing/skills/litigation-writing/SKILL.md): start here. Plans the papers for a step in a case, keeps the matter file, routes each document to the right skill, drafts the summons or notice of motion and the draft or proposed order.
+- [litigation-pleadings](https://raw.githubusercontent.com/3orionkings/litigation-writing/main/plugins/litigation-writing/skills/litigation-pleadings/SKILL.md): statement of claim or complaint, defence or answer, reply, counterclaim, amendment.
+- [litigation-evidence](https://raw.githubusercontent.com/3orionkings/litigation-writing/main/plugins/litigation-writing/skills/litigation-evidence/SKILL.md): affirmation, affidavit or declaration in the witness's own voice; reply evidence; witness statement; enforcement, procedural and non-party evidence.
+- [litigation-submissions](https://raw.githubusercontent.com/3orionkings/litigation-writing/main/plugins/litigation-writing/skills/litigation-submissions/SKILL.md): skeleton submissions or brief, reply, hearing note, speaking note, trial opening and closing, appeal (leave and substantive), costs, list of authorities, chronology.
+- [litigation-advice](https://raw.githubusercontent.com/3orionkings/litigation-writing/main/plugins/litigation-writing/skills/litigation-advice/SKILL.md): counsel's advice on the merits, on pleadings and causes of action, or before action.
+- [litigation-correspondence](https://raw.githubusercontent.com/3orionkings/litigation-writing/main/plugins/litigation-writing/skills/litigation-correspondence/SKILL.md): letters to the other side: request for particulars, demand, proposal, rule-based offer, covering letter.
+
+## Shared core (the same in every skill folder)
+
+- [Fields and placeholders](https://raw.githubusercontent.com/3orionkings/litigation-writing/main/shared/references/fields.md)
+- [Voice, perspective and register](https://raw.githubusercontent.com/3orionkings/litigation-writing/main/shared/references/voice.md)
+- [Authorities, citations and references](https://raw.githubusercontent.com/3orionkings/litigation-writing/main/shared/references/authorities.md)
+- [The matter file](https://raw.githubusercontent.com/3orionkings/litigation-writing/main/shared/references/matter-file.md)
+- [Jurisdictions](https://raw.githubusercontent.com/3orionkings/litigation-writing/main/shared/references/jurisdictions.md): profiles for hk, us-federal, ny, ca, wa, de-superior, de-chancery in shared/references/jurisdictions/
+
+## Optional
+
+- [README](https://raw.githubusercontent.com/3orionkings/litigation-writing/main/README.md): install for Claude Code, Codex and ChatGPT; limits.
+- [AGENTS.md](https://raw.githubusercontent.com/3orionkings/litigation-writing/main/AGENTS.md): how an assistant chooses and loads a skill; repository rules.

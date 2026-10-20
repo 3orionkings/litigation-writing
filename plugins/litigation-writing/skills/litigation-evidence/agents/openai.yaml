@@ -1,0 +1,7 @@
+# Codex and ChatGPT display metadata. The skill itself is SKILL.md.
+interface:
+  display_name: "Litigation Evidence"
+  short_description: "Affirmations, affidavits, declarations and witness statements"
+  default_prompt: "Draft a supporting affirmation for this summons:"
+policy:
+  allow_implicit_invocation: true

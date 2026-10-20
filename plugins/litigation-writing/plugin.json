@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "litigation-writing",
+  "version": "1.0.0",
+  "description": "Six litigation writing skills: plan the papers for a step in a case, then draft pleadings, affidavits and declarations, skeleton submissions and briefs, advices and letters to the other side, for Hong Kong and US courts. Every skill asks for what it needs, marks gaps with placeholders, never invents an authority, and checks its own draft.",
+  "author": {
+    "name": "3orionkings",
+    "url": "https://github.com/3orionkings"
+  },
+  "homepage": "https://github.com/3orionkings/litigation-writing",
+  "repository": "https://github.com/3orionkings/litigation-writing",
+  "license": "MIT",
+  "keywords": [
+    "litigation",
+    "legal-drafting",
+    "pleadings",
+    "affidavits",
+    "submissions",
+    "briefs",
+    "agent-skills",
+    "claude-code",
+    "codex"
+  ]
+}

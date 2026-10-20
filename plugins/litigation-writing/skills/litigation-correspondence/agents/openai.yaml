@@ -1,0 +1,7 @@
+# Codex and ChatGPT display metadata. The skill itself is SKILL.md.
+interface:
+  display_name: "Litigation Correspondence"
+  short_description: "Letters to the other side: particulars, demands, offers, service"
+  default_prompt: "Draft a request for further and better particulars of this statement of claim:"
+policy:
+  allow_implicit_invocation: true

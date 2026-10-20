@@ -1,0 +1,573 @@
+{
+  "name": "litigation-evidence",
+  "family": "evidence",
+  "base": {
+    "numbered_paragraphs": true,
+    "words": {
+      "min": 120,
+      "max": 30000
+    },
+    "first_person": "require",
+    "case_citations": "forbid",
+    "require": [
+      {
+        "id": "first-person-voice",
+        "label": "the deponent speaking as \"I\" (\"I am\", \"I make\", \"I refer\")",
+        "any": [
+          "\\bI (?:am|was|have|had|did|do|make|made|refer|believe|verily|affirm|declare|say|said|saw|heard|received|sent|signed|met|attended|paid|asked|told|know|knew|understand|submit|wrote|spoke)\\b"
+        ],
+        "case": true,
+        "where": "body"
+      },
+      {
+        "id": "hk-opening",
+        "label": "the opening formula (\"do hereby solemnly, sincerely and truly affirm and say as follows\", or \"make oath and say as follows\" for an affidavit)",
+        "any": [
+          "\\baffirm and say as follows\\b",
+          "\\bmake oath and say(?: as follows)?\\b"
+        ],
+        "where": "body",
+        "jurisdictions": [
+          "hk"
+        ]
+      },
+      {
+        "id": "hk-jurat",
+        "label": "a jurat beginning \"Affirmed\" or \"Sworn\" (\"AFFIRMED at [address] this [date]\")",
+        "any": [
+          "^\\W*(?:affirmed|sworn)\\b",
+          "\\b(?:affirmed|sworn) at\\b"
+        ],
+        "jurisdictions": [
+          "hk"
+        ]
+      },
+      {
+        "id": "hk-before-me",
+        "label": "\"Before me\" in the jurat",
+        "any": [
+          "\\bbefore me\\b"
+        ],
+        "jurisdictions": [
+          "hk"
+        ]
+      },
+      {
+        "id": "hk-filed",
+        "label": "the filing line (\"This Affirmation is filed on behalf of the [Plaintiff].\")",
+        "any": [
+          "\\bfiled on behalf of\\b"
+        ],
+        "severity": "soft",
+        "jurisdictions": [
+          "hk"
+        ]
+      },
+      {
+        "id": "us-federal-words",
+        "label": "the 28 U.S.C. § 1746 words (\"I declare under penalty of perjury … that the foregoing is true and correct\")",
+        "any": [
+          "\\b(?:declare|certify|verify|state)\\b.{0,40}?under penalty of perjury.{0,80}?foregoing is true and correct"
+        ],
+        "jurisdictions": [
+          "us-federal"
+        ]
+      },
+      {
+        "id": "us-ny-words",
+        "label": "the CPLR 2106 words (\"under the penalties of perjury under the laws of New York … that the foregoing is true\"), or a sworn jurat",
+        "any": [
+          "under the penalt(?:y|ies) of perjury under the laws? of (?:the State of )?New York",
+          "\\bsworn to (?:and subscribed )?before me\\b"
+        ],
+        "jurisdictions": [
+          "ny"
+        ]
+      },
+      {
+        "id": "us-ca-words",
+        "label": "the CCP 2015.5 words (\"I declare under penalty of perjury under the laws of the State of California that the foregoing is true and correct\")",
+        "any": [
+          "\\b(?:certify|declare)\\b.{0,30}?under penalty of perjury.{0,60}?foregoing is true and correct"
+        ],
+        "jurisdictions": [
+          "ca"
+        ]
+      },
+      {
+        "id": "us-wa-words",
+        "label": "the RCW 5.50.050 or GR 13 words (\"I declare under penalty of perjury under the law of Washington that the foregoing is true and correct\")",
+        "any": [
+          "under penalty of perjury under the laws? of (?:the )?(?:State of )?Washington"
+        ],
+        "jurisdictions": [
+          "wa"
+        ]
+      },
+      {
+        "id": "us-de-words",
+        "label": "a jurat before a notary (\"sworn to and subscribed before me\") or penalty-of-perjury words; check which the court accepts",
+        "any": [
+          "\\b(?:sworn|affirmed) to and subscribed before me\\b",
+          "\\bsubscribed and (?:sworn|affirmed)\\b",
+          "\\bunder penalty of perjury\\b",
+          "\\bnotary public\\b"
+        ],
+        "jurisdictions": [
+          "de-superior",
+          "de-chancery"
+        ]
+      }
+    ],
+    "forbid": [
+      {
+        "id": "submitted",
+        "label": "a submission (\"It is submitted\", \"we submit\") in the witness's evidence",
+        "any": [
+          "\\bit is (?:respectfully |humbly )?submitted\\b",
+          "\\bwe (?:respectfully |humbly )?submit\\b"
+        ],
+        "skip_quotes": true
+      },
+      {
+        "id": "submit-that",
+        "label": "\"I submit that\" (argument in the witness's mouth)",
+        "any": [
+          "\\bI (?:would )?(?:respectfully |humbly )?submit that\\b"
+        ],
+        "skip_quotes": true
+      },
+      {
+        "id": "fortiori",
+        "label": "\"a fortiori\" (counsel's signpost)",
+        "any": [
+          "\\ba fortiori\\b"
+        ],
+        "skip_quotes": true
+      },
+      {
+        "id": "court-invited",
+        "label": "\"the Court is invited\" (counsel's address to the court)",
+        "any": [
+          "\\b(?:the|this) (?:honourable |honorable )?court (?:is|will be) (?:respectfully )?invited\\b"
+        ],
+        "skip_quotes": true
+      },
+      {
+        "id": "case-citation",
+        "label": "a case citation (evidence cites no case)",
+        "any": [
+          "\\[(?:19|20)\\d{2}\\]\\s+(?:\\d{1,3}\\s+)?(?:HKCFA|HKCA|HKCFI|HKDC|HKFC|HKLRD|HKCFAR|HKC|HKLR|AC|WLR|QB|KB|Ch|Fam|All ER|UKSC|UKHL|UKPC|EWCA|EWHC)\\b",
+          "\\((?:19|20)\\d{2}\\)\\s+\\d{1,3}\\s+(?:HKCFAR|HKLRD|HKC)\\b",
+          "\\b\\d{1,4}\\s+(?:U\\.\\s?S\\.|S\\.\\s?Ct\\.|F\\.\\s?(?:2d|3d|4th)|F\\.\\s?Supp\\.(?:\\s?(?:2d|3d))?|A\\.\\s?(?:2d|3d)|NY(?:2d|3d)|N\\.Y\\.\\s?(?:2d|3d)|AD(?:2d|3d)|A\\.D\\.\\s?(?:2d|3d)|Cal\\.\\s?(?:App\\.\\s?)?(?:2d|3d|4th|5th)|Cal\\.\\s?Rptr\\.(?:\\s?(?:2d|3d))?|Wn\\.\\s?(?:2d|3d|App\\.)|P\\.\\s?(?:2d|3d))\\s+\\d{1,5}\\b",
+          "\\b\\d{4}\\s+WL\\s+\\d{3,}"
+        ],
+        "where": "body"
+      },
+      {
+        "id": "case-name",
+        "label": "apparent case name (\"X v Y\"); describe a judgment by court and date, and exhibit it",
+        "any": [
+          "\\b[A-Z][A-Za-z&'.]+ v\\.? [A-Z][A-Za-z&'.]+"
+        ],
+        "case": true,
+        "where": "body",
+        "severity": "soft",
+        "skip_quotes": true
+      },
+      {
+        "id": "stated-test",
+        "label": "a legal test or settled principle stated in the witness's voice",
+        "any": [
+          "\\bthe (?:legal |applicable |relevant |correct )?test (?:is|for|to be applied)\\b",
+          "\\bthe (?:law|principles?|position) (?:is|are) (?:well[- ])?(?:settled|established)\\b",
+          "\\bit is (?:trite|well[- ]settled|well[- ]established)\\b"
+        ],
+        "where": "body",
+        "severity": "soft",
+        "skip_quotes": true
+      },
+      {
+        "id": "court-should",
+        "label": "witness telling the court what to do (\"the Court should\")",
+        "any": [
+          "\\b(?:the|this) (?:honourable )?court (?:should|must|ought to|cannot)\\b"
+        ],
+        "where": "body",
+        "severity": "soft",
+        "skip_quotes": true
+      },
+      {
+        "id": "law-unadvised",
+        "label": "\"as a matter of law\" outside an \"I am advised and verily believe\" sentence",
+        "any": [
+          "^(?![^\\n]*\\badvised\\b)[^\\n]*\\bas a matter of law\\b"
+        ],
+        "where": "body",
+        "severity": "soft"
+      },
+      {
+        "id": "solicitor-voice",
+        "label": "solicitors' voice (\"our client\", \"we are instructed\") in a witness's evidence",
+        "any": [
+          "\\b(?:our|my) clients?\\b",
+          "\\bwe are instructed\\b"
+        ],
+        "severity": "soft",
+        "skip_quotes": true
+      },
+      {
+        "id": "unsourced-information",
+        "label": "unsourced information and belief (write \"I am informed by [name] and verily believe that\")",
+        "any": [
+          "\\b(?:I am|I have been|I was)(?: also| further)? informed,? and (?:I )?(?:verily )?believe"
+        ],
+        "severity": "soft"
+      },
+      {
+        "id": "us-hk-wording",
+        "label": "Hong Kong affirmation wording in a US declaration",
+        "any": [
+          "\\bcommissioner for oaths\\b",
+          "solemnly,? sincerely,? and truly affirm",
+          "\\bverily believe\\b"
+        ],
+        "severity": "soft",
+        "jurisdictions": [
+          "us"
+        ]
+      },
+      {
+        "id": "us-advised",
+        "label": "\"I am advised\" in a US declaration (law belongs in the memorandum, and reciting advice risks privilege)",
+        "any": [
+          "\\b(?:I am|I was|I have been)(?: also| further)? advised\\b"
+        ],
+        "severity": "soft",
+        "jurisdictions": [
+          "us"
+        ]
+      }
+    ]
+  },
+  "variants": {
+    "affirmation": {
+      "description": "affirmation or affidavit (US: declaration, or CPLR 2106 affirmation) in support of or in opposition to an application",
+      "require": [
+        {
+          "id": "aff-purpose",
+          "label": "a purpose paragraph (\"I make this affirmation in support of\" or \"in opposition to\" the summons or motion)",
+          "any": [
+            "\\bI (?:make|submit) this (?:[\\w-]+ ){0,3}(?:affirmation|affidavit|declaration|statement)\\b[^.\\n]{0,80}?\\bin (?:support|opposition|further support)\\b",
+            "\\b(?:declaration|affirmation|affidavit) of [^\\n]{0,80}?\\bin (?:support|opposition)\\b"
+          ],
+          "where": "body"
+        },
+        {
+          "id": "aff-prayer",
+          "label": "a prayer asking for the order (\"I respectfully ask the Court to make an order in terms of the Summons\")",
+          "any": [
+            "\\bpray\\b",
+            "\\brespectfully (?:ask|request|seek)\\b",
+            "\\bin terms of the summons\\b"
+          ],
+          "where": "body",
+          "jurisdictions": [
+            "hk"
+          ]
+        }
+      ]
+    },
+    "reply-affirmation": {
+      "description": "evidence in reply, answering the other side's evidence paragraph by paragraph",
+      "words": {
+        "min": 200,
+        "max": 30000
+      },
+      "require": [
+        {
+          "id": "reply-purpose",
+          "label": "a reply purpose paragraph (\"in reply to\", \"in further support of\")",
+          "any": [
+            "\\bin reply to\\b",
+            "\\bin further support of\\b",
+            "\\breply (?:affirmation|affidavit|declaration)\\b"
+          ],
+          "where": "body"
+        },
+        {
+          "id": "reply-paragraphs",
+          "label": "references to the paragraphs of the evidence being answered",
+          "any": [
+            "\\bparagraphs? \\d",
+            "\\bparagraphs? \\[number",
+            "§\\s?\\d"
+          ],
+          "severity": "soft",
+          "where": "body"
+        },
+        {
+          "id": "reply-prayer",
+          "label": "a prayer asking for the order (\"I respectfully ask the Court to make an order in terms of the Summons\")",
+          "any": [
+            "\\bpray\\b",
+            "\\brespectfully (?:ask|request|seek)\\b",
+            "\\bin terms of the summons\\b"
+          ],
+          "where": "body",
+          "jurisdictions": [
+            "hk"
+          ]
+        }
+      ]
+    },
+    "witness-statement": {
+      "description": "witness statement for trial",
+      "words": {
+        "min": 300,
+        "max": 40000
+      },
+      "drop": [
+        "hk-opening",
+        "hk-jurat",
+        "hk-before-me",
+        "hk-filed"
+      ],
+      "require": [
+        {
+          "id": "ws-opening",
+          "label": "the opening words (\"do make this statement and say as follows\")",
+          "any": [
+            "\\bmake this (?:witness )?statement\\b"
+          ],
+          "where": "body",
+          "jurisdictions": [
+            "hk"
+          ]
+        },
+        {
+          "id": "ws-truth",
+          "label": "the statement of truth (\"I believe that the facts stated in this Witness Statement are true\")",
+          "any": [
+            "\\bbelieve that the facts stated in this (?:witness )?statement are true\\b"
+          ],
+          "jurisdictions": [
+            "hk"
+          ]
+        }
+      ],
+      "forbid": [
+        {
+          "id": "ws-advised",
+          "label": "\"I am advised\" in a witness statement (use \"my understanding\" or name who said it)",
+          "any": [
+            "\\b(?:I am|I was|I have been)(?: also| further)? advised\\b",
+            "\\badvised by (?:my|our|the) (?:[A-Za-z']+ )?(?:solicitors|lawyers|legal representatives|counsel)\\b"
+          ],
+          "skip_quotes": true
+        },
+        {
+          "id": "ws-verily",
+          "label": "\"verily believe\" in a witness statement (\"[name] told me, and I believed, that\")",
+          "any": [
+            "\\bverily believe"
+          ],
+          "severity": "soft",
+          "skip_quotes": true
+        },
+        {
+          "id": "ws-exhibit-formula",
+          "label": "affirmation exhibit formula in a witness statement (use the bundle reference or an annexure)",
+          "any": [
+            "\\bproduced and shown to me\\b"
+          ],
+          "severity": "soft",
+          "jurisdictions": [
+            "hk"
+          ]
+        }
+      ]
+    },
+    "enforcement": {
+      "description": "post-judgment evidence: examination of a judgment debtor, charging order or garnishee order",
+      "words": {
+        "min": 250,
+        "max": 30000
+      },
+      "require": [
+        {
+          "id": "enf-debtor",
+          "label": "the judgment debtor, defined and named",
+          "any": [
+            "\\bjudgment debtor\\b"
+          ]
+        },
+        {
+          "id": "enf-unpaid",
+          "label": "a statement of the sums unpaid as at a date",
+          "any": [
+            "\\bunsatisfied\\b",
+            "\\bunpaid\\b",
+            "\\boutstanding\\b",
+            "\\bremains? due\\b",
+            "\\bare due\\b",
+            "\\bnothing has been paid\\b",
+            "\\bpaid nothing\\b"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "enf-belief-source",
+          "label": "the basis of belief (\"My belief is based on\", \"The grounds of my belief are\")",
+          "any": [
+            "\\bmy belief is based on\\b",
+            "\\bgrounds? of my belief\\b",
+            "\\bbasis (?:of|for) my belief\\b"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "enf-prayer",
+          "label": "a prayer asking for the order (\"I respectfully ask the Court to make a garnishee order …\")",
+          "any": [
+            "\\bpray\\b",
+            "\\brespectfully (?:ask|request|seek)\\b"
+          ],
+          "where": "body",
+          "jurisdictions": [
+            "hk"
+          ]
+        }
+      ],
+      "forbid": [
+        {
+          "id": "enf-character",
+          "label": "comment on the debtor's character (let dates and documents carry any inference)",
+          "any": [
+            "\\bdishonest(?:ly)?\\b",
+            "\\bfraudulent(?:ly)?\\b",
+            "\\bsham\\b",
+            "\\bdevious\\b",
+            "\\bunscrupulous\\b"
+          ],
+          "severity": "soft",
+          "skip_quotes": true
+        }
+      ]
+    },
+    "procedural": {
+      "description": "evidence for a procedural application such as an extension of time or leave (reasons for delay, prospects, prejudice)",
+      "words": {
+        "min": 200,
+        "max": 30000
+      },
+      "require": [
+        {
+          "id": "proc-purpose",
+          "label": "a purpose paragraph naming the application (\"I make this affirmation in support of\")",
+          "any": [
+            "\\bI (?:make|submit) this (?:[\\w-]+ ){0,3}(?:affirmation|affidavit|declaration|statement)\\b[^.\\n]{0,80}?\\bin (?:support|opposition|further support)\\b",
+            "\\b(?:declaration|affirmation|affidavit) of [^\\n]{0,80}?\\bin (?:support|opposition)\\b"
+          ],
+          "where": "body"
+        },
+        {
+          "id": "proc-reasons",
+          "label": "the reasons for the delay or for the step",
+          "any": [
+            "\\bdelay",
+            "\\breasons? (?:for|why)\\b",
+            "\\blate\\b"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "proc-prejudice",
+          "label": "the question of prejudice",
+          "any": [
+            "\\bprejudice"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "proc-prayer",
+          "label": "a prayer asking for the order (\"I respectfully ask the Court to make an order in terms of the Summons\")",
+          "any": [
+            "\\bpray\\b",
+            "\\brespectfully (?:ask|request|seek)\\b",
+            "\\bin terms of the summons\\b"
+          ],
+          "where": "body",
+          "jurisdictions": [
+            "hk"
+          ]
+        }
+      ]
+    },
+    "non-party": {
+      "description": "evidence of a non-party witness",
+      "words": {
+        "min": 80,
+        "max": 20000
+      },
+      "require": [
+        {
+          "id": "np-purpose",
+          "label": "a purpose sentence near the start (\"I make this affirmation in support of …\")",
+          "any": [
+            "\\bI make this (?:affirmation|affidavit|declaration|statement)\\b",
+            "\\bI submit this declaration\\b"
+          ],
+          "where": "body",
+          "severity": "soft"
+        },
+        {
+          "id": "np-relationship",
+          "label": "the witness's relationship to the parties (\"I am not a party\")",
+          "any": [
+            "\\bnot a party\\b",
+            "\\bmy relationship\\b",
+            "\\bI have known\\b",
+            "\\bI (?:am|was) employed\\b",
+            "\\bI worked\\b"
+          ],
+          "severity": "soft"
+        }
+      ],
+      "forbid": [
+        {
+          "id": "np-prayer",
+          "label": "a prayer from a non-party",
+          "any": [
+            "\\b(?:humbly |respectfully )?pray\\b",
+            "\\bin terms of the summons\\b",
+            "\\brespectfully (?:ask|request) the (?:Honourable )?Court\\b"
+          ],
+          "severity": "soft",
+          "where": "body"
+        },
+        {
+          "id": "np-advised",
+          "label": "\"I am advised\" from a non-party",
+          "any": [
+            "\\b(?:I am|I was|I have been)(?: also| further)? advised\\b"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "np-merits",
+          "label": "comment on the merits from a non-party",
+          "any": [
+            "\\bsham\\b",
+            "\\bfabricat\\w*",
+            "\\bbaseless\\b",
+            "\\babuse of (?:the )?process\\b",
+            "\\bno (?:real |arguable )?defence\\b"
+          ],
+          "severity": "soft",
+          "skip_quotes": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,641 @@
+{
+  "name": "litigation-submissions",
+  "family": "submissions",
+  "base": {
+    "numbered_paragraphs": true,
+    "words": {
+      "min": 150,
+      "max": 20000
+    },
+    "require": [
+      {
+        "id": "legend",
+        "label": "a legend line for bundle references near the start",
+        "any": [
+          "\\]\\s*=\\s*\\S",
+          "=\\s*(?:denotes\\s+)?(?:the\\s+)?(?:hearing\\s+|core\\s+|trial\\s+|agreed\\s+|appeal\\s+)?bundle"
+        ],
+        "severity": "soft",
+        "where": "start",
+        "jurisdictions": [
+          "hk"
+        ]
+      },
+      {
+        "id": "signature",
+        "label": "a signature block (counsel and the party they act for)",
+        "any": [
+          "\\bcounsel for\\b",
+          "\\battorneys? for\\b",
+          "\\bsolicitors? for\\b",
+          "\\[counsel-name\\]",
+          "\\brespectfully submitted\\b"
+        ],
+        "severity": "soft",
+        "where": "end"
+      },
+      {
+        "id": "conclusion",
+        "label": "a CONCLUSION (or WAY FORWARD, ORDERS SOUGHT, RELIEF REQUESTED) heading",
+        "any": [
+          "^[ \\t#*>|]*(?:[A-Z]{1,2}\\d*\\.\\s*|[IVX]{1,5}\\.\\s*)?(?:CONCLUSIONS?|Conclusions?|THE WAY FORWARD|The Way Forward|PROPOSED (?:DIRECTIONS|ORDERS?)|Proposed (?:Directions|Orders?)|(?:DIRECTIONS|ORDERS?|RELIEF) (?:SOUGHT|REQUESTED)|(?:Directions|Orders?|Relief) (?:Sought|Requested))\\b"
+        ],
+        "case": true
+      },
+      {
+        "id": "orders",
+        "label": "the orders sought, drafted in full near the end",
+        "any": [
+          "\\b(?:invites?|invited|asks?|asked|requests?|requested|urges?|prays?)\\b[^.\\n]{0,60}\\bcourt\\b[^.\\n]{0,40}?\\b(?:make|order|grant|dismiss|allow|refuse|deny|direct|set\\s+aside|award|strike|enter|extend)\\b",
+          "\\bin terms of the\\b",
+          "\\b(?:orders?|directions|relief)\\s+(?:sought|requested|proposed)\\b",
+          "\\bthe following (?:orders?|directions)\\b",
+          "\\bproposed (?:order|directions)\\b",
+          "^[ \\t#*>|]*wherefore\\b",
+          "\\b(?:be|is|are)\\s+(?:dismissed|allowed|granted|refused|struck out|set aside|extended)\\b",
+          "\\bdo pay\\b",
+          "\\bbe paid by\\b",
+          "\\bdirect(?:s|ed)?\\s+(?:as follows|that)\\b",
+          "\\bliberty to apply\\b"
+        ],
+        "where": "end"
+      },
+      {
+        "id": "us-tables",
+        "label": "a table of contents and a table of authorities (needed once a US brief passes the court's length threshold)",
+        "any": [
+          "\\btable of (?:contents|authorities|citations)\\b"
+        ],
+        "severity": "soft",
+        "where": "start",
+        "jurisdictions": [
+          "us"
+        ]
+      },
+      {
+        "id": "word-cert-us",
+        "label": "a word-count certificate where the court's length rule needs one",
+        "any": [
+          "\\bword[- ]count\\b",
+          "\\bcontains\\s+\\[?[\\w ,]*\\]?\\s*words\\b",
+          "\\bword limit\\b",
+          "\\btype-volume\\b"
+        ],
+        "severity": "soft",
+        "where": "end",
+        "jurisdictions": [
+          "us-federal",
+          "de-superior",
+          "de-chancery"
+        ]
+      }
+    ],
+    "forbid": [
+      {
+        "id": "neutral-summary",
+        "label": "a neutral summary of the other side's submissions before the analysis (answer them inside your own structure)",
+        "any": [
+          "^[ \\t#*>|]*(?:[A-Z]{1,2}\\d*(?:\\.\\d+)*\\.?\\s+)?summary of (?:the\\s+)?\\S+?['’]s\\s+(?:submissions|arguments?|case|position|skeleton)\\b"
+        ],
+        "severity": "soft",
+        "where": "body"
+      },
+      {
+        "id": "your-lordship",
+        "label": "\"Your Lordship\" or \"Your Honour\" in a written paper (write \"the Court\")",
+        "any": [
+          "\\byour (?:lordship|ladyship|honou?r)\\b"
+        ],
+        "severity": "soft",
+        "where": "body",
+        "skip_quotes": true
+      },
+      {
+        "id": "footnote-refs",
+        "label": "a footnote reference (put bundle and authority references inline at the end of the sentence)",
+        "any": [
+          "\\[\\^[^\\]\\n]+\\]"
+        ],
+        "severity": "soft",
+        "jurisdictions": [
+          "hk"
+        ]
+      },
+      {
+        "id": "hk-tags-in-us",
+        "label": "a Hong Kong bundle tag in a US paper (cite the record in the court's form)",
+        "any": [
+          "\\[[A-Z]\\d+/§"
+        ],
+        "severity": "soft",
+        "jurisdictions": [
+          "us"
+        ]
+      }
+    ]
+  },
+  "variants": {
+    "skeleton": {
+      "description": "interlocutory skeleton submissions; US memorandum of law or brief in support of or opposition to a motion",
+      "require": [
+        {
+          "id": "page-one",
+          "label": "the application, the relief and the stance on page one (a hearing sentence, overview or preliminary statement)",
+          "any": [
+            "\\bthis is the hearing\\b",
+            "\\bthis is the (?:\\w+\\s+){0,3}(?:application|summons)\\b",
+            "\\bin gist\\b",
+            "\\bpreliminary statement\\b",
+            "\\boverview\\b",
+            "\\bintroduction\\b",
+            "\\bsummary of (?:the\\s+)?argument\\b",
+            "\\brelief requested\\b",
+            "\\bnature and stage\\b"
+          ],
+          "severity": "soft",
+          "where": "start"
+        },
+        {
+          "id": "principles",
+          "label": "a statement of the governing principles or standard",
+          "any": [
+            "\\blegal principles\\b",
+            "\\bapplicable (?:legal )?principles\\b",
+            "\\bthe law\\b",
+            "\\blegal standard\\b",
+            "\\bstandard (?:of review|on (?:a|this) motion)\\b",
+            "^[ \\t#*>|]*argument\\b",
+            "\\bpoint\\s+(?:I|1|one)\\b",
+            "\\bthe test\\b"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "costs-order",
+          "label": "a costs order among the orders sought",
+          "any": [
+            "\\bcosts\\b"
+          ],
+          "severity": "soft",
+          "where": "end",
+          "jurisdictions": [
+            "hk"
+          ]
+        }
+      ]
+    },
+    "reply": {
+      "description": "reply skeleton or reply note; US reply brief or reply memorandum",
+      "words": {
+        "min": 100,
+        "max": 12000
+      },
+      "drop": [
+        "conclusion",
+        "orders"
+      ],
+      "require": [
+        {
+          "id": "answers-paper",
+          "label": "the paper it answers, identified at the start",
+          "any": [
+            "\\breply\\b",
+            "\\bin answer to\\b",
+            "\\bin response to\\b",
+            "\\bresponds? to\\b"
+          ],
+          "where": "start"
+        },
+        {
+          "id": "para-labels",
+          "label": "the other side's paragraphs cited by label ([D§n]) or by page",
+          "any": [
+            "\\[[A-Z][A-Za-z0-9]*§§?\\s?\\d",
+            "\\b(?:Opp|Opposition|Mem|Br)\\.?\\s+at\\s+\\d"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "reply-close",
+          "label": "a short closing request or a cross-reference to the orders sought",
+          "any": [
+            "\\binvite[sd]?\\b[^.\\n]{0,60}\\bcourt\\b",
+            "\\bmaintains? the orders\\b",
+            "\\borders sought\\b",
+            "\\brespectfully (?:requests?|submits?)\\b",
+            "\\bshould be (?:granted|dismissed|denied|allowed|refused)\\b"
+          ],
+          "severity": "soft",
+          "where": "end"
+        }
+      ]
+    },
+    "hearing-note": {
+      "description": "hearing note for a call-over, case management hearing, first appointment or time application",
+      "words": {
+        "min": 80,
+        "max": 5000
+      },
+      "drop": [
+        "us-tables",
+        "word-cert-us"
+      ]
+    },
+    "speaking-note": {
+      "description": "private oral script: primary position, fallback, anticipated points with scripted replies, the number to concede",
+      "first_person": "allow",
+      "first_person_plural": "allow",
+      "numbered_paragraphs": null,
+      "words": {
+        "min": 60,
+        "max": 6000
+      },
+      "drop": [
+        "legend",
+        "signature",
+        "conclusion",
+        "orders",
+        "us-tables",
+        "word-cert-us",
+        "neutral-summary",
+        "your-lordship"
+      ],
+      "require": [
+        {
+          "id": "primary",
+          "label": "the primary position",
+          "any": [
+            "\\bprimary\\s+(?:position|submission|case|argument)\\b",
+            "\\bmain\\s+(?:position|submission)\\b"
+          ]
+        },
+        {
+          "id": "fallback",
+          "label": "the fallback position",
+          "any": [
+            "\\bfall-?back\\b",
+            "\\balternative\\s+position\\b",
+            "\\bsecondary\\s+position\\b",
+            "\\bif the court is (?:minded|against)\\b"
+          ]
+        },
+        {
+          "id": "scripted-replies",
+          "label": "anticipated points, each with a scripted reply",
+          "any": [
+            "\\bif (?:they|the other side|opposing counsel)\\s+(?:says?|argues?|contends?|raises?|responds?)\\b",
+            "\\bif (?:the\\s+)?\\[?(?:Plaintiff|Defendant|Respondent|Appellant|Applicant|Petitioner|Party)\\]?\\s+(?:says?|argues?|contends?|raises?)\\b",
+            "\\breply\\s*:",
+            "→"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "concession",
+          "label": "the limit of any concession (the number to concede)",
+          "any": [
+            "\\bconcede\\b",
+            "\\bconcession",
+            "\\bno more than\\b",
+            "\\bat most\\b",
+            "\\bnot (?:less|more) than\\b"
+          ],
+          "severity": "soft"
+        }
+      ]
+    },
+    "trial-opening": {
+      "description": "opening submissions for trial; US trial brief or pretrial memorandum",
+      "drop": [
+        "conclusion",
+        "orders",
+        "word-cert-us",
+        "neutral-summary"
+      ],
+      "require": [
+        {
+          "id": "parties-cases",
+          "label": "the parties' cases stated side by side",
+          "any": [
+            "\\bparties['’]?\\s+(?:respective\\s+)?cases?\\b",
+            "\\brespective\\s+cases?\\b",
+            "\\bcases?\\s+of\\s+the\\s+parties\\b",
+            "\\beach\\s+party['’]s\\s+case\\b",
+            "\\bcontentions\\b"
+          ]
+        },
+        {
+          "id": "issues",
+          "label": "the issues for determination",
+          "any": [
+            "\\bissues?\\s+(?:for|to\\s+be)\\s+(?:determination|determined|decided|tried|trial)\\b",
+            "\\bissue\\s*(?:#|no\\.?\\s*)?\\d",
+            "\\bissues?\\s+(?:in|before)\\s+(?:the|this)\\s+(?:trial|court)\\b",
+            "\\bquestions?\\s+(?:presented|involved)\\b"
+          ]
+        },
+        {
+          "id": "decision-tree",
+          "label": "the order of decision (which issue first, and what follows from each answer)",
+          "any": [
+            "\\bif the answer to\\b",
+            "\\bdoes not arise\\b",
+            "\\bdo not arise\\b",
+            "\\bfalls? away\\b"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "opening-request",
+          "label": "a closing request with the findings and relief sought",
+          "any": [
+            "\\binvited to\\b",
+            "\\brespectfully (?:requests?|asks?)\\b",
+            "\\bshould (?:find|enter|grant|dismiss)\\b",
+            "\\bjudgment\\s+(?:for|in favou?r)\\b"
+          ],
+          "severity": "soft",
+          "where": "end"
+        }
+      ]
+    },
+    "trial-closing": {
+      "description": "closing submissions after the evidence; US post-trial brief or proposed findings of fact and conclusions of law",
+      "drop": [
+        "conclusion",
+        "orders",
+        "word-cert-us",
+        "us-tables"
+      ],
+      "require": [
+        {
+          "id": "findings",
+          "label": "the findings the court is invited to make",
+          "any": [
+            "\\binvited to (?:find|reject|accept|prefer|draw|give|attach|hold)\\b",
+            "\\bfindings?\\s+(?:sought|of fact)\\b",
+            "\\bproposed findings\\b",
+            "\\bshould (?:find|reject|accept|prefer)\\b"
+          ]
+        },
+        {
+          "id": "weight",
+          "label": "submissions on the weight of the evidence",
+          "any": [
+            "\\bweight\\b",
+            "\\bcredib",
+            "\\bunreliable\\b",
+            "\\badverse inference\\b"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "by-witness",
+          "label": "the evidence taken witness by witness, with transcript references",
+          "any": [
+            "\\bwitness",
+            "\\bcross-examination\\b",
+            "\\bTr\\.\\s*\\d",
+            "\\btranscript\\b"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "closing-request",
+          "label": "a closing request for judgment and costs",
+          "any": [
+            "\\binvited to\\b",
+            "\\brespectfully (?:requests?|asks?)\\b",
+            "\\bjudgment\\s+(?:for|in favou?r)\\b",
+            "\\bcosts\\b"
+          ],
+          "severity": "soft",
+          "where": "end"
+        }
+      ]
+    },
+    "appeal-leave": {
+      "description": "application for leave to appeal, including out of time, or resisting or setting aside leave",
+      "require": [
+        {
+          "id": "leave-grounds",
+          "label": "the proposed grounds, each identified",
+          "any": [
+            "\\bgrounds?\\s*(?:#|no\\.?\\s*)?\\d",
+            "\\bgrounds? of appeal\\b",
+            "\\bground (?:one|two|three)\\b",
+            "\\bproposed grounds?\\b",
+            "\\bquestions? presented\\b"
+          ]
+        },
+        {
+          "id": "prospects",
+          "label": "the prospects of the appeal against the threshold",
+          "any": [
+            "\\bprospects?\\b",
+            "\\barguable\\b",
+            "\\bthreshold\\b"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "delay",
+          "label": "the delay, counted and explained (if the application is out of time)",
+          "any": [
+            "\\bdelay\\b",
+            "\\bout of time\\b",
+            "\\bextension of time\\b",
+            "\\bexcusable neglect\\b",
+            "\\bgood cause\\b"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "importance",
+          "label": "the wider importance of the question (where relied on)",
+          "any": [
+            "\\bimportance\\b",
+            "\\bpublic interest\\b",
+            "\\bcontrolling question\\b",
+            "\\bimportant question\\b"
+          ],
+          "severity": "soft"
+        }
+      ]
+    },
+    "appeal": {
+      "description": "substantive appeal submissions, for the appellant or the respondent; US appellate brief",
+      "require": [
+        {
+          "id": "appeal-grounds",
+          "label": "the grounds of appeal, each identified",
+          "any": [
+            "\\bgrounds?\\s*(?:#|no\\.?\\s*)?\\d",
+            "\\bgrounds? of appeal\\b",
+            "\\bground (?:one|two|three)\\b",
+            "\\bissues? presented\\b",
+            "\\bstatement of (?:the\\s+)?issues\\b",
+            "\\bpoint\\s+(?:I|1)\\b"
+          ]
+        },
+        {
+          "id": "error",
+          "label": "the error below identified",
+          "any": [
+            "\\berr(?:ed|or|ors|s)\\b",
+            "\\bwrong(?:ly)?\\b",
+            "\\bmisdirect"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "costs-below",
+          "label": "costs of the appeal (and below)",
+          "any": [
+            "\\bcosts\\b"
+          ],
+          "severity": "soft",
+          "where": "end",
+          "jurisdictions": [
+            "hk"
+          ]
+        }
+      ]
+    },
+    "costs": {
+      "description": "costs submissions: base order, uplifts, indemnity costs, certificate for counsel, summary assessment; US fee or costs motion",
+      "require": [
+        {
+          "id": "costs-terms",
+          "label": "the costs terms (basis, assessment or taxation, certificate)",
+          "any": [
+            "\\bparty[- ]and[- ]party\\b",
+            "\\bindemnity\\b",
+            "\\bstandard basis\\b",
+            "\\bsummarily assess",
+            "\\btaxed\\b",
+            "\\btaxation\\b",
+            "\\bcertificate for (?:one |two )?counsel\\b",
+            "\\battorney['’]?s['’]? fees\\b",
+            "\\bbill of costs\\b",
+            "\\bmemorandum of costs\\b",
+            "\\bno order as to costs\\b",
+            "\\bcosts in the cause\\b"
+          ]
+        },
+        {
+          "id": "base-conceded",
+          "label": "the base order conceded where it is right, before the uplifts are fought",
+          "any": [
+            "\\bdoes not dispute\\b",
+            "\\bdo not dispute\\b",
+            "\\baccepts? that\\b",
+            "\\bconcede",
+            "\\bis not resisted\\b",
+            "\\bdoes not oppose\\b",
+            "\\bno objection\\b"
+          ],
+          "severity": "soft"
+        }
+      ]
+    },
+    "authorities-list": {
+      "description": "list of authorities accompanying a paper; US table of authorities",
+      "numbered_paragraphs": false,
+      "words": {
+        "min": 10,
+        "max": 6000
+      },
+      "drop": [
+        "legend",
+        "conclusion",
+        "orders",
+        "us-tables",
+        "word-cert-us",
+        "neutral-summary"
+      ],
+      "require": [
+        {
+          "id": "numbered-list",
+          "label": "a numbered list of authorities",
+          "any": [
+            "^\\W{0,3}\\d{1,3}[.)]\\s+\\S",
+            "^\\|\\s*\\d{1,3}\\s*\\|"
+          ]
+        },
+        {
+          "id": "legislation-group",
+          "label": "legislation and rules in their own group",
+          "any": [
+            "^[ \\t#*>|]*(?:[A-Z]\\.\\s*)?(?:legislation|statutes?|statutory|rules|ordinances?|constitutional)"
+          ],
+          "severity": "soft"
+        }
+      ],
+      "forbid": [
+        {
+          "id": "no-pinpoints",
+          "label": "a pinpoint in a list entry (pinpoints belong in the paper)",
+          "any": [
+            "\\bat\\s+§",
+            "\\bat\\s+(?:paras?\\.?|paragraphs?)\\s*\\d",
+            "\\bat\\s+\\[\\d",
+            "\\bat\\s+pp?\\.\\s*\\d",
+            "\\bat\\s+\\*\\d",
+            "\\bat\\s+\\d+[A-Ha-h]?\\b(?!\\s*(?:am\\b|pm\\b|a\\.m|p\\.m|:|\\.\\d))"
+          ],
+          "where": "body"
+        },
+        {
+          "id": "us-pinpoint",
+          "label": "a US-style pinpoint after a reporter citation",
+          "any": [
+            "\\b\\d{1,4}\\s+[A-Z][A-Za-z.0-9' ]{0,24}?\\s+\\d{1,5},\\s*\\d{1,5}\\b"
+          ],
+          "severity": "soft",
+          "where": "body",
+          "case": true
+        }
+      ]
+    },
+    "chronology": {
+      "description": "chronology, agreed or a party's (trial appendix, procedural or family)",
+      "family": "chronology",
+      "numbered_paragraphs": false,
+      "words": {
+        "min": 30,
+        "max": 20000
+      },
+      "drop": [
+        "legend",
+        "signature",
+        "conclusion",
+        "orders",
+        "us-tables",
+        "word-cert-us",
+        "neutral-summary",
+        "your-lordship"
+      ],
+      "require": [
+        {
+          "id": "dated-rows",
+          "label": "a date column or dated rows",
+          "any": [
+            "^\\|\\s*(?:#|no\\.?|item)?\\s*\\|?\\s*dates?\\s*\\|",
+            "^\\|?\\s*(?:\\d{1,3}\\s*\\|\\s*)?(?:\\d{1,2}[./-]\\d{1,2}[./-]\\d{2,4}|\\d{1,2}(?:st|nd|rd|th)?\\s+[A-Za-z]{3,9}\\.?,?\\s+\\d{4}|[A-Za-z]{3,9}\\.?\\s+\\d{1,2},\\s+\\d{4}|\\d{4}-\\d{2}-\\d{2}|\\[date(?: \\d+)?\\])"
+          ]
+        }
+      ],
+      "forbid": [
+        {
+          "id": "comment-column",
+          "label": "a comment or argument column",
+          "any": [
+            "^\\|.*\\|\\s*(?:comments?|remarks|significance|argument|observations?|notes?)\\s*\\|\\s*$"
+          ],
+          "severity": "soft"
+        }
+      ]
+    }
+  }
+}

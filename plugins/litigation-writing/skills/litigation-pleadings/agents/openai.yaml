@@ -1,0 +1,7 @@
+# Codex and ChatGPT display metadata. The skill itself is SKILL.md.
+interface:
+  display_name: "Litigation Pleadings"
+  short_description: "Claims, defences, replies, counterclaims and amended pleadings"
+  default_prompt: "Draft a defence to this statement of claim:"
+policy:
+  allow_implicit_invocation: true

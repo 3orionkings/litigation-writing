@@ -1,0 +1,42 @@
+[
+  {"name": "hk summons, well formed", "skill": "litigation-writing", "variant": "summons", "draft": "hk-summons-good.md",
+   "jurisdiction": "hk", "passes": true, "pass": ["call", "first-person", "submits", "em-dash", "fields-table"],
+   "placeholders": ["[date 1]", "[Plaintiff]", "[solicitors-firm]"]},
+  {"name": "hk summons that argues", "skill": "litigation-writing", "variant": "summons", "draft": "hk-summons-argues.md",
+   "jurisdiction": "hk", "passes": false, "fail": ["submits", "first-person", "em-dash"]},
+  {"name": "placeholders need the table; non-standard gaps noted", "skill": "litigation-writing", "variant": "summons",
+   "draft": "hk-summons-no-table.md", "jurisdiction": "hk", "passes": false, "fail": ["fields-table", "vocabulary"]},
+
+  {"name": "hk defence, well formed", "skill": "litigation-pleadings", "variant": "defence", "draft": "hk-defence-good.md",
+   "jurisdiction": "hk", "passes": true, "pass": ["numbered", "statement-of-truth", "served-slot", "defence-traverse", "first-person", "no-case-law"]},
+  {"name": "hk defence that argues and cites", "skill": "litigation-pleadings", "variant": "defence", "draft": "hk-defence-bad.md",
+   "jurisdiction": "hk", "passes": false,
+   "fail": ["first-person", "no-case-law", "knew-or-ought", "em-dash", "procedural-threat", "statement-of-truth", "served-slot"]},
+  {"name": "us answer written with hk forms", "skill": "litigation-pleadings", "variant": "defence", "draft": "us-answer-hk-forms.md",
+   "jurisdiction": "us-federal", "passes": false, "fail": ["hk-traverse-in-us", "seriatim", "hk-sot"]},
+  {"name": "hk claim without the date of the writ", "skill": "litigation-pleadings", "variant": "claim", "draft": "hk-claim-no-writ-date.md",
+   "jurisdiction": "hk", "passes": false, "fail": ["writ-issue-date"], "pass": ["claim-prayer-hk", "statement-of-truth", "served-slot"]},
+
+  {"name": "hk affirmation, well formed", "skill": "litigation-evidence", "variant": "affirmation", "draft": "hk-affirmation-good.md",
+   "jurisdiction": "hk", "passes": true, "pass": ["first-person", "hk-opening", "hk-jurat", "hk-before-me", "aff-purpose", "aff-prayer", "submitted"]},
+  {"name": "hk affirmation that argues like counsel", "skill": "litigation-evidence", "variant": "affirmation", "draft": "hk-affirmation-argues.md",
+   "jurisdiction": "hk", "passes": false, "fail": ["submitted", "fortiori", "case-citation", "no-case-law", "court-invited"]},
+  {"name": "california declaration without the CCP 2015.5 words", "skill": "litigation-evidence", "variant": "affirmation",
+   "draft": "ca-declaration-no-words.md", "jurisdiction": "ca", "passes": false, "fail": ["us-ca-words", "2015-5"]},
+
+  {"name": "hk skeleton, well formed, authority supplied", "skill": "litigation-submissions", "variant": "skeleton", "draft": "hk-skeleton-good.md",
+   "matter": "matter-with-authority.json", "jurisdiction": "hk", "passes": true,
+   "pass": ["numbered", "conclusion", "orders", "first-person", "supplied", "pinpoints", "legend"]},
+  {"name": "hk skeleton citing an authority the user did not supply", "skill": "litigation-submissions", "variant": "skeleton",
+   "draft": "hk-skeleton-good.md", "matter": "matter-without-authority.json", "jurisdiction": "hk", "passes": false, "fail": ["supplied"]},
+  {"name": "hk skeleton in the first person with a summary close", "skill": "litigation-submissions", "variant": "skeleton",
+   "draft": "hk-skeleton-first-person.md", "jurisdiction": "hk", "passes": false, "fail": ["first-person", "summary-close"]},
+  {"name": "new york memorandum need not number paragraphs", "skill": "litigation-submissions", "variant": "skeleton",
+   "draft": "ny-memo-unnumbered.md", "jurisdiction": "ny", "passes": true, "pass": ["conclusion", "orders", "first-person"]},
+
+  {"name": "advice with numeric odds and instructions to the client", "skill": "litigation-advice", "variant": "merits",
+   "draft": "hk-advice-odds.md", "jurisdiction": "hk", "passes": false, "fail": ["numeric-odds", "you-imperative", "imperative-to-client"]},
+  {"name": "hk request for further and better particulars", "skill": "litigation-correspondence", "variant": "particulars-request",
+   "draft": "hk-particulars-request-good.md", "jurisdiction": "hk", "passes": true,
+   "pass": ["sign-off-letter", "under-paragraph", "please-provide", "order-18-rule-12", "without-prejudice-to-pleading", "reservation"]}
+]

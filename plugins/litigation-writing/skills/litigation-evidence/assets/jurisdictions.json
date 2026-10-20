@@ -1,0 +1,374 @@
+{
+  "description": "Machine-readable jurisdiction rules for scripts/litcheck.py. The prose profiles are references/jurisdictions/<code>.md. Researched October 2026; word limits are soft because they depend on the kind of motion and on local orders. Rules use the format in docs/style-json.md. A profile or group may set overrides, keyed by family, skill:* or skill:variant, that replace structural settings (for example US briefs do not number paragraphs).",
+  "citation_patterns": {
+    "hk": [
+      "\\[\\d{4}\\]\\s+HK(?:CFA|CA|CFI|DC|FC|LT|LRT|CT|MagC)\\s+\\d+",
+      "\\[\\d{4}\\]\\s+\\d+\\s+HKLRD\\s+\\d+",
+      "\\(\\d{4}\\)\\s+\\d+\\s+HKCFAR\\s+\\d+",
+      "\\[\\d{4}\\]\\s+(?:\\d+\\s+)?HK(?:C|LR|FLR|EC)\\s+\\d+"
+    ],
+    "english": [
+      "\\[\\d{4}\\]\\s+(?:\\d+\\s+)?(?:AC|QB|KB|Ch|Fam|WLR|All ER(?: \\(Comm\\))?|Lloyd's Rep|FLR|BCLC|BCC|UKSC|UKPC|UKHL|EWCA Civ|EWHC)\\s+(?:\\(\\w+\\)\\s+)?\\d+"
+    ],
+    "bluebook": [
+      "\\b\\d{1,4}\\s+(?:U\\.S\\.|S\\.\\s?Ct\\.|L\\.\\s?Ed\\.\\s?2d|F\\.(?:\\s?2d|\\s?3d|\\s?4th)?|F\\.\\s?Supp\\.(?:\\s?2d|\\s?3d)?|F\\.\\s?App'x|A\\.(?:2d|3d)|P\\.(?:2d|3d)|N\\.E\\.(?:2d|3d)|N\\.Y\\.S\\.(?:2d|3d)?|Cal\\.\\s?Rptr\\.(?:\\s?2d|\\s?3d)?|So\\.(?:\\s?2d|\\s?3d)?|S\\.W\\.(?:2d|3d)|N\\.W\\.2d|S\\.E\\.2d|Del\\.(?:\\s?Ch\\.)?)\\s+\\d{1,5}",
+      "\\b\\d{4}\\s+WL\\s+\\d+"
+    ],
+    "ny-official": [
+      "\\b\\d{1,3}\\s+(?:NY(?:2d|3d)|AD(?:2d|3d)|Misc(?:\\s?2d|\\s?3d)?)\\s+\\d+"
+    ],
+    "ca-official": [
+      "\\(\\d{4}\\)\\s+\\d{1,3}\\s+Cal\\.(?:\\s?App\\.)?(?:\\s?(?:2d|3d|4th|5th))?\\s+\\d+"
+    ],
+    "wa-official": [
+      "\\b\\d{1,3}\\s+Wn\\.(?:\\s?2d|\\s?App\\.(?:\\s?2d)?)?\\s+\\d+"
+    ]
+  },
+  "pinpoint_patterns": [
+    "§\\s?\\d",
+    "\\bparas?\\.?\\s?\\d",
+    "\\bparagraphs?\\s\\d",
+    "\\bat\\s\\*?\\d",
+    "\\bat\\s\\[",
+    "^,\\s?\\d{1,5}\\b",
+    "\\b\\d{1,4}[A-H](?:-[A-H])?\\b",
+    "\\[\\d+\\]",
+    "\\bpp?\\.\\s?\\d",
+    "§ needed"
+  ],
+  "profiles": {
+    "hk": {
+      "name": "Hong Kong",
+      "group": "hk",
+      "citation_local": [
+        "hk",
+        "english"
+      ],
+      "families": {
+        "pleadings": {
+          "require": [
+            {
+              "id": "sot",
+              "label": "a statement of truth (O.18 r.20A, O.41A)",
+              "any": [
+                "believes? that the facts stated in this",
+                "statement of truth"
+              ],
+              "where": "end"
+            },
+            {
+              "id": "dated",
+              "label": "a dated line (\"Dated this … day of …\")",
+              "any": [
+                "\\bdated\\s+(?:this|the|on)\\b"
+              ]
+            },
+            {
+              "id": "served-slot",
+              "label": "the \"Served\" slot on the backsheet (O.18 r.6(1)(e))",
+              "any": [
+                "^\\s*served\\b",
+                "\\bserved\\s+(?:on\\s+)?(?:this|the)\\b"
+              ],
+              "where": "end"
+            }
+          ],
+          "forbid": [
+            {
+              "id": "us-wherefore",
+              "label": "US vocabulary (\"WHEREFORE\", \"Complaint\") in a Hong Kong pleading",
+              "any": [
+                "^\\s*WHEREFORE\\b",
+                "\\bthis Complaint\\b"
+              ],
+              "severity": "soft",
+              "case": true
+            }
+          ]
+        },
+        "evidence": {
+          "require": [],
+          "forbid": []
+        },
+        "submissions": {
+          "require": [],
+          "forbid": []
+        }
+      },
+      "word_limits": {}
+    },
+    "us-federal": {
+      "name": "United States district courts",
+      "group": "us",
+      "citation_local": [
+        "bluebook"
+      ],
+      "families": {
+        "evidence": {
+          "require": [
+            {
+              "id": "1746",
+              "label": "the 28 U.S.C. §1746 declaration words",
+              "any": [
+                "declare\\s+under\\s+penalty\\s+of\\s+perjury"
+              ],
+              "where": "end"
+            }
+          ]
+        }
+      },
+      "word_limits": {}
+    },
+    "ny": {
+      "name": "New York Supreme Court",
+      "group": "us",
+      "citation_local": [
+        "ny-official"
+      ],
+      "families": {
+        "evidence": {
+          "require": [
+            {
+              "id": "2106",
+              "label": "the CPLR 2106 affirmation words (\"under the penalties of perjury\")",
+              "any": [
+                "under\\s+the\\s+penalt(?:y|ies)\\s+of\\s+perjury"
+              ],
+              "where": "end"
+            }
+          ]
+        },
+        "submissions": {
+          "require": [
+            {
+              "id": "word-cert",
+              "label": "a word-count certification (22 NYCRR 202.8-b)",
+              "any": [
+                "\\bword[- ]count\\b",
+                "\\bcontains\\s+\\[?[\\w ,]*\\]?\\s*words\\b",
+                "\\b202\\.8-b\\b"
+              ],
+              "severity": "soft",
+              "where": "end"
+            }
+          ]
+        }
+      },
+      "word_limits": {
+        "litigation-submissions:skeleton": {
+          "max": 7000,
+          "label": "22 NYCRR 202.8-b (memorandum of law in chief)"
+        },
+        "litigation-submissions:reply": {
+          "max": 4200,
+          "label": "22 NYCRR 202.8-b (reply memorandum)"
+        }
+      }
+    },
+    "ca": {
+      "name": "California Superior Court",
+      "group": "us",
+      "citation_local": [
+        "ca-official"
+      ],
+      "families": {
+        "evidence": {
+          "require": [
+            {
+              "id": "2015-5",
+              "label": "the CCP 2015.5 declaration words",
+              "any": [
+                "under\\s+penalty\\s+of\\s+perjury\\s+under\\s+the\\s+laws\\s+of\\s+the\\s+State\\s+of\\s+California"
+              ],
+              "where": "end"
+            }
+          ]
+        }
+      },
+      "word_limits": {}
+    },
+    "wa": {
+      "name": "Washington Superior Court",
+      "group": "us",
+      "citation_local": [
+        "wa-official",
+        "bluebook"
+      ],
+      "families": {
+        "evidence": {
+          "require": [
+            {
+              "id": "5-50",
+              "label": "the RCW 5.50.050 declaration words",
+              "any": [
+                "under\\s+penalty\\s+of\\s+perjury\\s+under\\s+the\\s+laws?\\s+of\\s+(?:the\\s+State\\s+of\\s+)?Washington"
+              ],
+              "where": "end"
+            }
+          ]
+        },
+        "submissions": {
+          "require": [
+            {
+              "id": "word-cert",
+              "label": "a word-count certification (King County LCR 7)",
+              "any": [
+                "\\bcontains\\s+\\[?[\\w ,]*\\]?\\s*words\\b",
+                "\\bword[- ]count\\b",
+                "\\bLCR\\s*7\\b"
+              ],
+              "severity": "soft",
+              "where": "end"
+            }
+          ]
+        }
+      },
+      "word_limits": {
+        "litigation-submissions:skeleton": {
+          "max": 4200,
+          "label": "King County LCR 7(b)(5) (motion brief; 8,400 for summary judgment under LCR 56)"
+        },
+        "litigation-submissions:reply": {
+          "max": 1750,
+          "label": "King County LCR 7(b)(5) (reply)"
+        }
+      }
+    },
+    "de-superior": {
+      "name": "Delaware Superior Court",
+      "group": "us",
+      "citation_local": [
+        "bluebook"
+      ],
+      "families": {
+        "evidence": {
+          "require": [
+            {
+              "id": "oath",
+              "label": "an oath, affirmation or penalty-of-perjury clause",
+              "any": [
+                "\\b(?:sworn|affirmed|subscribed)\\b[^.\\n]{0,80}\\bbefore me\\b",
+                "\\bnotary public\\b",
+                "under\\s+penalty\\s+of\\s+perjury"
+              ],
+              "where": "end"
+            }
+          ]
+        }
+      },
+      "word_limits": {
+        "litigation-submissions:skeleton": {
+          "max": 8000,
+          "label": "Superior Court Civil Rule 107 (opening brief)"
+        },
+        "litigation-submissions:reply": {
+          "max": 5500,
+          "label": "Superior Court Civil Rule 107 (reply brief)"
+        }
+      }
+    },
+    "de-chancery": {
+      "name": "Delaware Court of Chancery",
+      "group": "us",
+      "citation_local": [
+        "bluebook"
+      ],
+      "families": {
+        "pleadings": {
+          "require": [
+            {
+              "id": "verification",
+              "label": "a verification for a claim pleading (Chancery Rule 3(c))",
+              "any": [
+                "\\bverif(?:y|ied|ication)\\b"
+              ],
+              "severity": "soft",
+              "where": "end"
+            }
+          ]
+        },
+        "evidence": {
+          "require": [
+            {
+              "id": "oath",
+              "label": "an oath, affirmation or penalty-of-perjury clause",
+              "any": [
+                "\\b(?:sworn|affirmed|subscribed)\\b[^.\\n]{0,80}\\bbefore me\\b",
+                "\\bnotary public\\b",
+                "under\\s+penalty\\s+of\\s+perjury"
+              ],
+              "where": "end"
+            }
+          ]
+        }
+      },
+      "word_limits": {
+        "litigation-submissions:skeleton": {
+          "max": 14000,
+          "label": "Chancery Rule 7(b) (opening brief)"
+        },
+        "litigation-submissions:reply": {
+          "max": 8000,
+          "label": "Chancery Rule 7(b) (reply brief)"
+        }
+      }
+    }
+  },
+  "groups": {
+    "us": {
+      "families": {
+        "pleadings": {
+          "require": [
+            {
+              "id": "signature-bar",
+              "label": "an attorney signature block with a bar number",
+              "any": [
+                "\\[bar number\\]",
+                "\\bbar\\s+(?:no|number|#)",
+                "\\bSBN\\b",
+                "\\bWSBA\\b",
+                "\\bstate bar\\b"
+              ],
+              "severity": "soft",
+              "where": "end"
+            }
+          ],
+          "forbid": [
+            {
+              "id": "hk-sot",
+              "label": "a Hong Kong statement of truth in a US pleading",
+              "any": [
+                "believes? that the facts stated in this (?:statement of claim|defence|reply|pleading|points)"
+              ]
+            },
+            {
+              "id": "seriatim",
+              "label": "a Hong Kong general traverse (\"traversed seriatim\")",
+              "any": [
+                "traversed\\s+seriatim"
+              ]
+            },
+            {
+              "id": "hk-names",
+              "label": "Hong Kong document names in a US pleading",
+              "any": [
+                "\\bStatement of Claim\\b",
+                "\\bDefence\\b"
+              ],
+              "severity": "soft",
+              "case": true
+            }
+          ]
+        }
+      },
+      "overrides": {
+        "submissions": {
+          "numbered_paragraphs": false
+        }
+      }
+    },
+    "hk": {
+      "families": {}
+    }
+  }
+}

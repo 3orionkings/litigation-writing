@@ -1,0 +1,19 @@
+# Build output
+dist/
+
+# Python
+__pycache__/
+*.pyc
+
+# Test output
+tests/results/
+
+# Never commit a real matter file or anything from a real case
+matter.json
+*.matter.json
+private/
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/

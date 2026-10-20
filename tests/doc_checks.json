@@ -1,0 +1,179 @@
+[
+ {
+  "name": "placeholders, the checker and the jurisdiction are stated",
+  "files": [
+   "SKILL.md"
+  ],
+  "must": [
+   "FIELDS TO COMPLETE",
+   "litcheck\\.py",
+   "jurisdiction"
+  ]
+ },
+ {
+  "name": "skills that cite authority mark gaps",
+  "skills": [
+   "litigation-submissions",
+   "litigation-advice",
+   "litigation-correspondence"
+  ],
+  "files": [
+   "SKILL.md"
+  ],
+  "must": [
+   "authority needed"
+  ]
+ },
+ {
+  "name": "skills that never cite cases say so",
+  "skills": [
+   "litigation-pleadings",
+   "litigation-evidence",
+   "litigation-writing"
+  ],
+  "files": [
+   "SKILL.md"
+  ],
+  "must": [
+   "(?:no|never)[^.\\n]{0,40}(?:case|citation|authorit)|cite[^.\\n]{0,20}rules, not cases"
+  ]
+ },
+ {
+  "name": "the skills follow their own register",
+  "files": [
+   "SKILL.md",
+   "references/formulae.md"
+  ],
+  "never": [
+   "—",
+   "\\bdelve\\b",
+   "it is important to note",
+   "\\bunderscor",
+   "humani[sz]er"
+  ]
+ },
+ {
+  "name": "shared core present",
+  "files": [
+   "references/voice.md",
+   "references/fields.md",
+   "references/authorities.md"
+  ],
+  "must": [
+   "Who is speaking",
+   "placeholder vocabulary",
+   "authority policy"
+  ]
+ },
+ {
+  "name": "pleadings keep the party's voice",
+  "skills": [
+   "litigation-pleadings"
+  ],
+  "files": [
+   "SKILL.md"
+  ],
+  "must": [
+   "third person",
+   "facts"
+  ],
+  "never": [
+   "It is submitted that the"
+  ]
+ },
+ {
+  "name": "evidence keeps the witness's voice",
+  "skills": [
+   "litigation-evidence"
+  ],
+  "files": [
+   "SKILL.md"
+  ],
+  "must": [
+   "first person",
+   "advised and verily believe",
+   "deponent"
+  ]
+ },
+ {
+  "name": "submissions are counsel's advocacy",
+  "skills": [
+   "litigation-submissions"
+  ],
+  "files": [
+   "SKILL.md"
+  ],
+  "must": [
+   "Counsel",
+   "Bundle ref"
+  ]
+ },
+ {
+  "name": "advice gives no numeric odds",
+  "skills": [
+   "litigation-advice"
+  ],
+  "files": [
+   "SKILL.md"
+  ],
+  "must": [
+   "first person",
+   "never (?:a )?(?:number|numeric|percentage)|no numeric|not (?:in )?numbers"
+  ]
+ },
+ {
+  "name": "asks for copies of the authorities",
+  "skills": [
+   "litigation-submissions",
+   "litigation-advice"
+  ],
+  "files": [
+   "SKILL.md"
+  ],
+  "must": [
+   "copies or extracts",
+   "never paraphrased",
+   "emphasis added"
+  ]
+ },
+ {
+  "name": "asks for exhibits and instructions",
+  "skills": [
+   "litigation-evidence"
+  ],
+  "files": [
+   "SKILL.md"
+  ],
+  "must": [
+   "documents to be exhibited",
+   "attendance note",
+   "instructions"
+  ]
+ },
+ {
+  "name": "asks for instructions, dramatis personae and documents",
+  "skills": [
+   "litigation-pleadings"
+  ],
+  "files": [
+   "SKILL.md"
+  ],
+  "must": [
+   "dramatis personae",
+   "chronology",
+   "client's instructions"
+  ]
+ },
+ {
+  "name": "quotation and paraphrase rules in the shared core",
+  "files": [
+   "references/authorities.md"
+  ],
+  "must": [
+   "reproduced exactly",
+   "\\(emphasis added\\)",
+   "exact in substance",
+   "quotation needed"
+  ]
+ }
+]

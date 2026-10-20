@@ -1,0 +1,7 @@
+# Codex and ChatGPT display metadata. The skill itself is SKILL.md.
+interface:
+  display_name: "Litigation Advice"
+  short_description: "Counsel's advice on merits, pleadings or a pre-action dispute"
+  default_prompt: "Draft my advice to instructing solicitors on the merits of this claim:"
+policy:
+  allow_implicit_invocation: true

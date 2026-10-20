@@ -1,0 +1,7 @@
+# Codex and ChatGPT display metadata. The skill itself is SKILL.md.
+interface:
+  display_name: "Litigation Submissions"
+  short_description: "Draft skeletons, briefs, hearing notes, appeal and costs papers"
+  default_prompt: "Draft skeleton submissions opposing this summons:"
+policy:
+  allow_implicit_invocation: true

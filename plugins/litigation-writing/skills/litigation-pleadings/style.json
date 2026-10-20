@@ -1,0 +1,85 @@
+{
+  "name": "litigation-pleadings",
+  "family": "pleadings",
+  "base": {
+    "numbered_paragraphs": true,
+    "words": {"min": 150, "max": 40000},
+    "require": [
+      {"id": "statement-of-truth", "label": "a statement of truth naming this pleading (O.18 r.20A, O.41A)", "any": ["\\bbelieves?\\s+that\\s+the\\s+facts\\s+stated\\s+in\\s+th(?:is|e)\\b", "\\bbelieve\\(s\\)\\s+that\\s+the\\s+facts\\s+stated\\s+in\\b"], "severity": "hard", "where": "end", "jurisdictions": ["hk"]},
+      {"id": "served-slot", "label": "a line beginning \"Served\" on the backsheet for the date of service (O.18 r.6(1)(e))", "any": ["^[\\s*_|>+~]*Served\\b"], "case": true, "severity": "hard", "where": "end", "jurisdictions": ["hk"]},
+      {"id": "us-bar-number", "label": "an attorney signature block with a bar number", "any": ["\\[bar number\\]", "\\bbar\\s+(?:no\\.|number|id)", "\\bWSBA\\b", "\\bSBN\\b", "\\bState\\s+Bar\\b", "\\bBar\\s+No\\b"], "severity": "soft", "where": "end", "jurisdictions": ["us"]}
+    ],
+    "forbid": [
+      {"id": "knew-or-ought", "label": "\"knew or ought to have known\": it pleads constructive knowledge, which will not support fraud; plead actual knowledge and its grounds", "any": ["\\bknew,?\\s+or\\s+ought\\s+(?:reasonably\\s+)?to\\s+have\\s+known\\b", "\\bknew\\s+and/or\\s+ought\\s+to\\s+have\\s+known\\b"], "severity": "hard", "skip_quotes": true},
+      {"id": "knew-or-should", "label": "\"knew or should have known\": acceptable for negligence, never for fraud or dishonesty", "any": ["\\bknew,?\\s+(?:or|and/or)\\s+should\\s+have\\s+known\\b"], "severity": "soft", "skip_quotes": true},
+      {"id": "procedural-threat", "label": "a procedural threat inside a pleading (strike-out, complaint to a professional body)", "any": ["\\bshould\\s+be\\s+struck\\s+out\\b", "\\bliable\\s+to\\s+be\\s+struck\\s+out\\b", "\\bcomplaint\\s+(?:to|with)\\s+the\\s+(?:Law\\s+Society|Bar\\s+Association|State\\s+Bar)\\b", "\\breport\\s+(?:the\\s+\\w+\\s+)?to\\s+the\\s+(?:Law\\s+Society|Bar\\s+Association|State\\s+Bar)\\b"], "severity": "hard"},
+      {"id": "intensified-denial", "label": "an intensifier on a denial (\"strongly denied\")", "any": ["\\b(?:strongly|firmly|vehemently|categorically|emphatically|vigorously)\\s+(?:denie[sd]|den(?:y|ies))\\b"], "severity": "soft"},
+      {"id": "not-denied", "label": "\"is not denied\": neither an admission, a denial nor a non-admission", "any": ["\\b(?:is|are)\\s+not\\s+denied\\b"], "severity": "hard", "jurisdictions": ["hk"]},
+      {"id": "cpr-vocabulary", "label": "English CPR vocabulary in a Hong Kong pleading", "any": ["\\bparticulars\\s+of\\s+claim\\b", "\\bstatement\\s+of\\s+value\\b", "\\bPart\\s+20\\s+claim\\b", "\\bs\\.?\\s*35A\\b"], "severity": "soft", "jurisdictions": ["hk"]},
+      {"id": "hk-traverse-in-us", "label": "the Hong Kong traverse idiom (\"save and except\", \"traversed seriatim\") in a US pleading", "any": ["\\bsave\\s+and\\s+except\\b", "\\btraversed\\s+seriatim\\b"], "severity": "hard", "jurisdictions": ["us"]},
+      {"id": "hk-forms-in-us", "label": "a Hong Kong form (statement of truth, \"put to strict proof\", \"AND THE PLAINTIFF CLAIMS\") in a US pleading", "any": ["\\bSTATEMENT\\s+OF\\s+TRUTH\\b", "\\bput\\s+to\\s+strict\\s+proof\\b", "^[\\W_]*AND\\s+THE\\s+PLAINTIFF\\s+CLAIMS\\b"], "severity": "soft", "jurisdictions": ["us"]}
+    ]
+  },
+  "variants": {
+    "claim": {
+      "description": "statement of claim (separate or indorsed on the writ), points of claim, or complaint",
+      "require": [
+        {"id": "claim-prayer-hk", "label": "a prayer opening \"AND THE [PARTY] CLAIMS\" (O.18 r.15(1))", "any": ["^[\\W_]*AND\\s+THE\\s+[^\\n]{1,80}?\\bCLAIMS?\\b"], "severity": "hard", "jurisdictions": ["hk"]},
+        {"id": "claim-prayer-us", "label": "a prayer for relief or WHEREFORE clause", "any": ["\\bPRAYER\\s+FOR\\s+RELIEF\\b", "^[\\W_]*WHEREFORE\\b", "\\bDEMAND\\s+FOR\\s+(?:RELIEF|JUDGMENT)\\b", "\\bREQUEST\\s+FOR\\s+RELIEF\\b"], "severity": "hard", "jurisdictions": ["us"]},
+        {"id": "writ-issue-date", "label": "the date the writ was issued, on the face of a statement of claim (O.18 r.15(3)); points of claim are exempt", "any": ["\\bwrit\\b[^\\n]{0,80}\\bissued\\b", "\\bissued\\b[^\\n]{0,40}\\bwrit\\b", "\\bPOINTS\\s+OF\\s+CLAIM\\b"], "severity": "hard", "jurisdictions": ["hk"]},
+        {"id": "federal-jurisdiction", "label": "a statement of the grounds for the court's jurisdiction (FRCP 8(a)(1))", "any": ["^[\\W_]*JURISDICTION\\b", "\\bsubject[- ]matter\\s+jurisdiction\\b", "\\bjurisdiction\\s+over\\s+this\\s+action\\b"], "severity": "soft", "jurisdictions": ["us-federal"]},
+        {"id": "chancery-verification-claim", "label": "a verification by the party (Court of Chancery Rule 3(c))", "any": ["\\bVERIFICATION\\b", "\\bverif(?:y|ies|ied)\\b"], "severity": "soft", "where": "end", "jurisdictions": ["de-chancery"]}
+      ],
+      "forbid": [
+      ]
+    },
+    "defence": {
+      "description": "defence, points of defence, or answer with affirmative defenses",
+      "words": {"min": 100, "max": 40000},
+      "require": [
+        {"id": "defence-traverse", "label": "an admission, denial or non-admission of the claim's allegations", "any": ["\\b(?:is|are)\\s+(?:admitted|denied|not\\s+admitted)\\b", "\\bno\\s+admissions?\\s+(?:is|are)\\s+made\\b", "\\bmakes?\\s+no\\s+admissions?\\b", "\\b(?:admits|denies)\\b", "\\blacks?\\s+knowledge\\s+or\\s+information\\b", "\\bwithout\\s+knowledge\\s+or\\s+information\\b"], "severity": "hard"},
+        {"id": "defence-affirmative-heading", "label": "an affirmative defenses heading (put every avoidance there, with its facts)", "any": ["\\baffirmative\\s+defen[cs]es?\\b", "\\b(?:additional|separate)\\s+defen[cs]es\\b"], "severity": "soft", "jurisdictions": ["us"]}
+      ],
+      "forbid": [
+        {"id": "defence-joinder", "label": "joinder of issue in a defence (joinder belongs only in a reply)", "any": ["\\bjoins?\\s+issue\\b"], "severity": "hard", "jurisdictions": ["hk"]}
+      ]
+    },
+    "reply": {
+      "description": "reply, reply and defence to counterclaim, or reply or answer to a counterclaim",
+      "words": {"min": 100, "max": 40000},
+      "require": [
+        {"id": "reply-traverse", "label": "an answer to the defence or counterclaim (joinder, admission, denial or non-admission)", "any": ["\\bjoins?\\s+issue\\b", "\\b(?:is|are)\\s+(?:admitted|denied|not\\s+admitted)\\b", "\\bno\\s+admissions?\\s+(?:is|are)\\s+made\\b", "\\bmakes?\\s+no\\s+admissions?\\b", "\\b(?:admits|denies)\\b", "\\bavers?\\b"], "severity": "hard"},
+        {"id": "reply-us-basis", "label": "a counterclaim or court order to reply to (no reply to an answer unless ordered)", "any": ["\\bcounterclaims?\\b", "\\bcross-complaint\\b", "\\bcross-claims?\\b", "\\border(?:ed)?\\b[^\\n]{0,60}\\breply\\b"], "severity": "soft", "jurisdictions": ["us"]}
+      ],
+      "forbid": [
+      ]
+    },
+    "counterclaim": {
+      "description": "defence and counterclaim, counterclaim, answer with counterclaims, or cross-complaint",
+      "require": [
+        {"id": "counterclaim-heading", "label": "a COUNTERCLAIM or CROSS-COMPLAINT heading", "any": ["^[\\W_]*(?:(?:RE-)*AMENDED\\s+)?(?:COUNTERCLAIMS?|CROSS-COMPLAINT)\\b", "\\bDEFENCE\\s+AND\\s+COUNTERCLAIM\\b"], "severity": "hard"},
+        {"id": "counterclaim-prayer-hk", "label": "a counter-prayer opening \"AND THE [PARTY] COUNTERCLAIMS\"", "any": ["^[\\W_]*AND\\s+THE\\s+[^\\n]{1,80}?\\bCOUNTERCLAIMS?\\b", "\\bCOUNTERCLAIMS?\\s+AGAINST\\b[^\\n]{0,120}\\bFOR\\b"], "severity": "hard", "jurisdictions": ["hk"]},
+        {"id": "counterclaim-prayer-us", "label": "a prayer for relief or WHEREFORE clause on the counterclaim", "any": ["\\bPRAYER\\s+FOR\\s+RELIEF\\b", "^[\\W_]*WHEREFORE\\b", "\\bDEMAND\\s+FOR\\s+(?:RELIEF|JUDGMENT)\\b"], "severity": "hard", "jurisdictions": ["us"]},
+        {"id": "counterclaim-affirmative-heading", "label": "an affirmative defenses heading in the answer that carries the counterclaims", "any": ["\\baffirmative\\s+defen[cs]es?\\b", "\\b(?:additional|separate)\\s+defen[cs]es\\b"], "severity": "soft", "jurisdictions": ["us-federal", "ny", "wa", "de-superior", "de-chancery"]},
+        {"id": "chancery-verification-counterclaim", "label": "a verification of the counterclaim (Court of Chancery Rule 3(c))", "any": ["\\bVERIFICATION\\b", "\\bverif(?:y|ies|ied)\\b"], "severity": "soft", "where": "end", "jurisdictions": ["de-chancery"]}
+      ],
+      "forbid": [
+        {"id": "counterclaim-joinder", "label": "joinder of issue in a defence and counterclaim", "any": ["\\bjoins?\\s+issue\\b"], "severity": "hard", "jurisdictions": ["hk"]}
+      ]
+    },
+    "amendment": {
+      "description": "amended or re-amended pleading of any variant, with the summons or motion for leave",
+      "words": {"min": 100, "max": 40000},
+      "require": [
+        {"id": "amendment-legend-hk", "label": "an amendment legend naming the rule or the order and its date (O.20 r.10(2))", "any": ["^[\\W_]*(?:Re-)*Amended\\b[^\\n]{0,200}\\bpursuant\\s+to\\b", "^[\\W_]*(?:Re-)*Amended\\b[^\\n]{0,200}\\b(?:Order\\s+20|O\\.\\s*20)\\b", "^[\\W_]*Replaced\\s+by\\s+Amendment\\b"], "severity": "hard", "jurisdictions": ["hk"]},
+        {"id": "amendment-title-hk", "label": "the pleading's title marked AMENDED or RE-AMENDED", "any": ["^[\\W_]*(?:RE-)*AMENDED[\\W_]*\\s*(?:WRIT|STATEMENT|POINTS|DEFENCE|REPLY|COUNTERCLAIM|PARTICULARS)\\b"], "severity": "hard", "jurisdictions": ["hk"]},
+        {"id": "amendment-sot-hk", "label": "a fresh statement of truth naming the amended pleading (O.20 r.13)", "any": ["\\bfacts\\s+stated\\s+in\\s+th(?:is|e)\\s+[\\W_]*(?:Re-)*Amended\\b"], "severity": "hard", "jurisdictions": ["hk"]},
+        {"id": "amendment-comparison-us", "label": "a statement that a redline, blackline or comparison shows the changes", "any": ["\\bred-?lin(?:e|ed|ing)\\b", "\\bblack-?lin(?:e|ed|ing)\\b", "\\bcomparison\\b", "\\bcompar(?:ed|ing)\\s+(?:to|with|against)\\b", "\\bshow(?:s|ing)?\\s+(?:all\\s+)?(?:the\\s+)?(?:changes|differences|additions)\\b", "\\bdiffers?\\s+from\\s+the\\b", "\\bunderlin(?:ed|ing)\\b[^\\n]{0,80}\\bstr(?:uck|ike|iking)\\b", "\\bdeletions?\\b[^\\n]{0,80}\\badditions?\\b"], "severity": "hard", "jurisdictions": ["us"]},
+        {"id": "amendment-title-us", "label": "a numbered or proposed amended title (\"FIRST AMENDED COMPLAINT\")", "any": ["\\b(?:FIRST|SECOND|THIRD|FOURTH|FIFTH|SIXTH|\\d+(?:ST|ND|RD|TH))\\s+AMENDED\\b", "\\bPROPOSED\\b[^\\n]{0,40}\\bAMENDED\\b", "\\bAMENDED\\s+(?:COMPLAINT|ANSWER|COUNTERCLAIMS?|CROSS-COMPLAINT|REPLY|PETITION)\\b"], "severity": "soft", "jurisdictions": ["us"]}
+      ],
+      "forbid": [
+        {"id": "amendment-colour-in-us", "label": "a Hong Kong colour legend or O.20 reference in a US amendment", "any": ["\\bAmended\\s+(?:and\\s+underlined\\s+)?in\\s+(?:red|green|violet|yellow)\\b", "\\bpursuant\\s+to\\s+(?:RHC|O\\.\\s*20|Order\\s+20)\\b"], "severity": "soft", "jurisdictions": ["us"]}
+      ]
+    }
+  }
+}

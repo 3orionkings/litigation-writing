@@ -1,0 +1,37 @@
+{
+  "name": "litigation-writing",
+  "version": "1.0.0",
+  "description": "Six litigation writing skills: plan the papers for a step in a case, then draft pleadings, affidavits and declarations, skeleton submissions and briefs, advices and letters to the other side, for Hong Kong and US courts. Every skill asks for what it needs, marks gaps with placeholders, never invents an authority, and checks its own draft.",
+  "author": {
+    "name": "3orionkings",
+    "url": "https://github.com/3orionkings"
+  },
+  "homepage": "https://github.com/3orionkings/litigation-writing",
+  "repository": "https://github.com/3orionkings/litigation-writing",
+  "license": "MIT",
+  "keywords": [
+    "litigation",
+    "legal-drafting",
+    "pleadings",
+    "affidavits",
+    "submissions",
+    "briefs",
+    "agent-skills",
+    "claude-code",
+    "codex"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Litigation Writing",
+    "shortDescription": "Draft pleadings, evidence, submissions, advice and letters",
+    "longDescription": "Six litigation writing skills: plan the papers for a step in a case, then draft pleadings, affidavits and declarations, skeleton submissions and briefs, advices and letters to the other side, for Hong Kong and US courts. Every skill asks for what it needs, marks gaps with placeholders, never invents an authority, and checks its own draft. Install it, then describe the document or the step in the case, or name a skill.",
+    "developerName": "3orionkings",
+    "category": "Productivity",
+    "websiteURL": "https://github.com/3orionkings/litigation-writing",
+    "defaultPrompt": [
+      "Plan the papers I need for this application:",
+      "Draft a defence to this statement of claim:",
+      "Draft the supporting affirmation for this summons:"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+# Codex and ChatGPT display metadata. The skill itself is SKILL.md.
+interface:
+  display_name: "Litigation Writing"
+  short_description: "Plan litigation papers, keep the matter file, route drafting"
+  default_prompt: "Plan the papers I need for this application:"
+policy:
+  allow_implicit_invocation: true

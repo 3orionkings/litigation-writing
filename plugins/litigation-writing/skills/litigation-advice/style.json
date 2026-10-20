@@ -1,0 +1,227 @@
+{
+  "name": "litigation-advice",
+  "family": "advice",
+  "base": {
+    "numbered_paragraphs": true,
+    "words": {
+      "min": 300,
+      "max": 40000
+    },
+    "first_person": "require",
+    "first_person_plural": "soft",
+    "require": [
+      {
+        "id": "instructions",
+        "label": "an opening that says what counsel is asked or instructed to advise on (\"I am asked\", \"I am instructed\")",
+        "any": [
+          "\\bI (?:am|was|have been) (?:also )?(?:asked|instructed)\\b"
+        ],
+        "severity": "hard",
+        "where": "start"
+      },
+      {
+        "id": "numbered-issue",
+        "label": "the issues as numbered questions (\"Issue 1: Whether ...?\")",
+        "any": [
+          "\\bIssue\\s*#?\\s*\\d+\\s*[:.)]"
+        ],
+        "severity": "hard"
+      },
+      {
+        "id": "issue-question",
+        "label": "an issue framed as a question ending in a question mark",
+        "any": [
+          "\\bIssue\\s*#?\\s*\\d+\\s*[:.)][^\\n]*\\?"
+        ],
+        "severity": "soft"
+      },
+      {
+        "id": "summary-opening",
+        "label": "an executive summary or \"In a nutshell\" opening",
+        "any": [
+          "\\bexecutive summary\\b",
+          "\\bin a nutshell\\b",
+          "\\bsummary of (?:advice|conclusions|views)\\b"
+        ],
+        "severity": "soft",
+        "where": "start"
+      },
+      {
+        "id": "hedge",
+        "label": "the hedge on the views expressed (\"on the information provided\", \"subject to ...\")",
+        "any": [
+          "\\bon the (?:information|materials?|documents?|instructions?|evidence) (?:provided|given|available|supplied|seen)",
+          "\\bon the basis of the (?:information|materials?|documents?)",
+          "\\bsubject to (?:the information|further information|further instructions|the materials?|the documents?|the evidence|\\S+ coming up to proof)"
+        ],
+        "severity": "hard"
+      },
+      {
+        "id": "applying",
+        "label": "the pivot from principle to facts (\"Applying the principles here, the question to ask is as follows:\")",
+        "any": [
+          "\\bapplying the (?:principles?|test|legal test)\\b"
+        ],
+        "severity": "soft"
+      },
+      {
+        "id": "interim-conclusion",
+        "label": "an interim conclusion on each issue",
+        "any": [
+          "\\binterim conclusion\\b"
+        ],
+        "severity": "soft"
+      },
+      {
+        "id": "information-request",
+        "label": "the list of missing information and a request for it",
+        "any": [
+          "\\bI (?:would|should|will) be grateful\\b",
+          "\\b(?:further|missing|outstanding|additional) information\\b",
+          "\\binformation (?:required|needed|requested|still needed)\\b",
+          "\\bI (?:have|had) no (?:information|instructions)\\b"
+        ],
+        "severity": "hard"
+      },
+      {
+        "id": "formal-close",
+        "label": "the formal close (\"The foregoing is my preliminary advice on these matters.\")",
+        "any": [
+          "\\bthe foregoing is (?:my|our) (?:preliminary )?advice\\b",
+          "\\b(?:I|we) would be (?:happy|pleased|glad) to (?:assist|advise)\\b",
+          "\\bif (?:I|we) can be of (?:any )?further assistance\\b"
+        ],
+        "severity": "hard"
+      },
+      {
+        "id": "authorities-list",
+        "label": "a list of authorities used (and of those considered but not cited)",
+        "any": [
+          "\\blist of authorities\\b",
+          "\\bauthorities (?:cited|used|relied on|considered)\\b"
+        ],
+        "severity": "soft",
+        "where": "end"
+      }
+    ],
+    "forbid": [
+      {
+        "id": "numeric-odds",
+        "label": "numeric odds or a percentage for success (use the verbal scale)",
+        "any": [
+          "\\b\\d{1,3}(?:\\.\\d+)?\\s?(?:%|per ?cent\\b|percent\\b)(?:(?!per annum|interest|rate)[^.\\n]){0,30}?\\b(?:chances?|prospects?|likelihood|success(?:ful)?|probability|odds)\\b",
+          "\\b(?:chances?|prospects?|likelihood|success|probability|odds)\\b(?:(?!per annum|interest|rate)[^.\\n]){0,30}?\\b\\d{1,3}(?:\\.\\d+)?\\s?(?:%|per ?cent\\b|percent\\b)",
+          "\\b\\d{1,3}\\s?(?:/|:|-)\\s?\\d{1,3}\\s+(?:chance|odds|prospects?|shot)\\b",
+          "\\bfifty[- ]fifty\\b",
+          "\\b(?:one|two|three|four|five|\\d+)\\s+in\\s+(?:two|three|four|five|six|ten|\\d+)\\s+chance\\b",
+          "\\bodds (?:of|are|at) \\d"
+        ],
+        "severity": "hard",
+        "where": "body"
+      },
+      {
+        "id": "you-imperative",
+        "label": "an instruction to the client (\"you should\", \"you must\")",
+        "any": [
+          "\\byou (?:should|must|need to|ought to|have to|will need to)\\b"
+        ],
+        "severity": "hard",
+        "where": "body",
+        "skip_quotes": true
+      },
+      {
+        "id": "addressing-you",
+        "label": "\"you\" or \"your\" addressed to the client",
+        "any": [
+          "\\byou(?:r|rs|rself)?\\b"
+        ],
+        "severity": "soft",
+        "where": "body",
+        "skip_quotes": true
+      },
+      {
+        "id": "praise",
+        "label": "praise of the client's case or a promise of success",
+        "any": [
+          "\\b(?:strong|excellent|compelling|watertight|overwhelming|unassailable) case\\b",
+          "\\bbound to succeed\\b",
+          "\\bcannot (?:possibly )?lose\\b",
+          "\\bcertain to succeed\\b",
+          "\\bguarantee\\w*\\b"
+        ],
+        "severity": "soft",
+        "where": "body",
+        "skip_quotes": true
+      },
+      {
+        "id": "bullet-glyph",
+        "label": "a bullet point (number every paragraph and sub-point)",
+        "any": [
+          "^\\s*[-*•▪●◦‣]\\s+\\S"
+        ],
+        "severity": "soft",
+        "where": "body"
+      }
+    ]
+  },
+  "variants": {
+    "merits": {
+      "description": "advice on the merits of a claim or defence, in or before proceedings",
+      "words": {
+        "min": 400,
+        "max": 40000
+      }
+    },
+    "pleadings": {
+      "description": "advice on causes of action and how to plead them, ending each with the particulars to plead",
+      "words": {
+        "min": 500,
+        "max": 40000
+      },
+      "require": [
+        {
+          "id": "particulars-to-plead",
+          "label": "the particulars to plead for each recommended cause of action",
+          "any": [
+            "\\bparticulars to (?:be )?plead(?:ed)?\\b",
+            "\\b(?:can,? and should,? be|should be|ought to be) pleaded\\b",
+            "\\bfacts to (?:be )?allege(?:d)?\\b"
+          ],
+          "severity": "hard"
+        },
+        {
+          "id": "relief-list",
+          "label": "the relief to be claimed",
+          "any": [
+            "\\brelief to be claimed\\b",
+            "\\bfurther and/or other relief\\b",
+            "\\bsuch other and further relief\\b",
+            "\\bremedies to (?:be )?(?:claimed|pleaded)\\b",
+            "\\bWHEREFORE\\b"
+          ],
+          "severity": "soft",
+          "where": "end"
+        }
+      ]
+    },
+    "pre-action": {
+      "description": "pre-action advice on potential claims or defences, including point-form advice for oral delivery",
+      "words": {
+        "min": 200,
+        "max": 40000
+      },
+      "require": [
+        {
+          "id": "limitation",
+          "label": "a word on limitation",
+          "any": [
+            "\\blimitation\\b",
+            "\\btime[- ]bar",
+            "\\bstatute of limitations\\b"
+          ],
+          "severity": "soft"
+        }
+      ]
+    }
+  }
+}

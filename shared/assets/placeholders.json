@@ -1,0 +1,59 @@
+{
+  "description": "The closed placeholder vocabulary. A placeholder is one of these labels in square brackets, optionally followed by a space and a number ([date 2]); party roles may take an ordinal ([1st Defendant]). [authority needed: ...] takes free text after the colon.",
+  "party_roles": [
+    "Plaintiff",
+    "Defendant",
+    "Claimant",
+    "Respondent",
+    "Petitioner",
+    "Appellant",
+    "Applicant",
+    "Intervener",
+    "Third Party",
+    "Judgment Creditor",
+    "Judgment Debtor",
+    "Garnishee",
+    "Party"
+  ],
+  "labels": [
+    "name",
+    "the Child",
+    "deponent",
+    "witness",
+    "expert",
+    "judge",
+    "counsel-name",
+    "solicitors-firm",
+    "bar number",
+    "date",
+    "time",
+    "age",
+    "sum",
+    "rate",
+    "period",
+    "number",
+    "percentage",
+    "address",
+    "language",
+    "company number",
+    "account number",
+    "property description",
+    "case number",
+    "court",
+    "statutory provision",
+    "rule",
+    "document title",
+    "Bundle ref",
+    "exhibit",
+    "§ needed"
+  ],
+  "free_text": [
+    "authority needed",
+    "quotation needed"
+  ],
+  "nonstandard": [
+    "\\[\\s*\\]",
+    "\\[\\s*(?:X+|TBC|TBA|TBD|\\?+|●[^\\]]*|insert[^\\]]*|tbc[^\\]]*)\\s*\\]",
+    "_{4,}"
+  ]
+}

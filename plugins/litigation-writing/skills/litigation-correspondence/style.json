@@ -1,0 +1,518 @@
+{
+  "name": "litigation-correspondence",
+  "family": "correspondence",
+  "base": {
+    "numbered_paragraphs": false,
+    "words": {
+      "min": 40,
+      "max": 8000
+    },
+    "first_person": "soft",
+    "first_person_plural": "allow",
+    "require": [
+      {
+        "id": "sign-off",
+        "label": "a sign-off (Yours faithfully / Yours sincerely / Sincerely / Very truly yours)",
+        "any": [
+          "\\byours faithfully\\b",
+          "\\byours sincerely\\b",
+          "^\\W*sincerely(?: yours)?\\W*$",
+          "\\bvery truly yours\\b",
+          "\\byours truly\\b",
+          "^\\W*respectfully(?: submitted| yours)?\\W*$"
+        ],
+        "severity": "hard",
+        "where": "end"
+      },
+      {
+        "id": "re-line",
+        "label": "a \"Re:\" or subject line",
+        "any": [
+          "^\\W{0,4}(?:re|subject)\\s*:"
+        ],
+        "severity": "soft",
+        "where": "start"
+      },
+      {
+        "id": "references",
+        "label": "the references line (Our ref / Your ref)",
+        "any": [
+          "\\bour ref(?:erence)?\\b"
+        ],
+        "severity": "soft",
+        "where": "start",
+        "jurisdictions": [
+          "hk"
+        ]
+      }
+    ],
+    "forbid": [
+      {
+        "id": "it-is-submitted",
+        "label": "\"It is submitted\" (a letter states the client's position; it does not make submissions)",
+        "any": [
+          "\\bit is (?:respectfully |humbly )?submitted\\b"
+        ],
+        "severity": "soft",
+        "where": "body"
+      },
+      {
+        "id": "criminal-threat",
+        "label": "a threat of a criminal complaint or report (check it is not made to gain a civil advantage)",
+        "any": [
+          "\\b(?:report|refer)\\b[^.\\n]{0,40}\\b(?:to the police|for prosecution|criminal)",
+          "\\bcriminal (?:complaint|proceedings|prosecution|charges?)\\b"
+        ],
+        "severity": "soft",
+        "where": "body"
+      }
+    ]
+  },
+  "variants": {
+    "particulars-request": {
+      "description": "Hong Kong request for further and better particulars under O.18 r.12; New York demand for a bill of particulars; in other US courts, a meet-and-confer or deficiency letter",
+      "drop": [
+        "sign-off"
+      ],
+      "require": [
+        {
+          "id": "sign-off-letter",
+          "label": "a sign-off (Yours faithfully / Yours sincerely / Sincerely / Very truly yours)",
+          "any": [
+            "\\byours faithfully\\b",
+            "\\byours sincerely\\b",
+            "^\\W*sincerely(?: yours)?\\W*$",
+            "\\bvery truly yours\\b",
+            "\\byours truly\\b",
+            "^\\W*respectfully(?: submitted| yours)?\\W*$"
+          ],
+          "severity": "hard",
+          "where": "end",
+          "jurisdictions": [
+            "hk",
+            "us-federal",
+            "ca",
+            "wa",
+            "de-superior",
+            "de-chancery"
+          ]
+        },
+        {
+          "id": "signature-demand",
+          "label": "a sign-off, or the signature block of the attorneys serving the demand",
+          "any": [
+            "\\byours faithfully\\b",
+            "\\byours sincerely\\b",
+            "^\\W*sincerely(?: yours)?\\W*$",
+            "\\bvery truly yours\\b",
+            "\\byours truly\\b",
+            "^\\W*attorneys? for\\b",
+            "^\\W*counsel for\\b",
+            "^\\W*dated\\s*:",
+            "^\\W*respectfully(?: submitted| yours)?\\W*$"
+          ],
+          "severity": "hard",
+          "where": "end",
+          "jurisdictions": [
+            "ny"
+          ]
+        },
+        {
+          "id": "under-paragraph",
+          "label": "\"Under paragraph [number]\" headings, one for each paragraph of the pleading",
+          "any": [
+            "\\bunder paragraphs? [\\[\\d]"
+          ],
+          "severity": "hard",
+          "jurisdictions": [
+            "hk"
+          ]
+        },
+        {
+          "id": "under-paragraph-ny",
+          "label": "items grouped by paragraph of the pleading (\"Under paragraph [number]\")",
+          "any": [
+            "\\bunder paragraphs? [\\[\\d]",
+            "\\bparagraphs? [\\[\\d][^\\n]{0,40}\\bof the (?:complaint|answer|counterclaim)"
+          ],
+          "severity": "soft",
+          "jurisdictions": [
+            "ny"
+          ]
+        },
+        {
+          "id": "please-provide",
+          "label": "requests that begin \"Please provide\" or \"Please state\"",
+          "any": [
+            "\\bplease (?:provide|state|identify|specify|give)\\b"
+          ],
+          "severity": "hard",
+          "jurisdictions": [
+            "hk"
+          ]
+        },
+        {
+          "id": "order-18-rule-12",
+          "label": "a reference to Order 18 rule 12",
+          "any": [
+            "\\border 18,? r(?:ule|\\.)\\s?12\\b",
+            "\\bO\\.\\s?18,?\\s?r\\.?\\s?12\\b"
+          ],
+          "severity": "hard",
+          "jurisdictions": [
+            "hk"
+          ]
+        },
+        {
+          "id": "cplr-3041",
+          "label": "a reference to CPLR 3041 or 3042",
+          "any": [
+            "\\bCPLR\\s*(?:§\\s*)?304[12]\\b",
+            "\\b304[12]\\b"
+          ],
+          "severity": "soft",
+          "jurisdictions": [
+            "ny"
+          ]
+        },
+        {
+          "id": "without-prejudice-to-pleading",
+          "label": "the line that the request is without prejudice to the client's own pleading",
+          "any": [
+            "\\bwithout prejudice to [^.\\n]{0,60}(?:defen[cs]e|pleading|pleaded case|statement of claim|reply|counterclaim|\\[document title)"
+          ],
+          "severity": "hard",
+          "jurisdictions": [
+            "hk"
+          ]
+        },
+        {
+          "id": "reservation",
+          "label": "a reservation of rights",
+          "any": [
+            "\\brights?\\b[^.\\n]{0,80}\\breserved\\b",
+            "\\breserves? (?:all |its |his |her |their |our client'?s'? )?rights?\\b"
+          ],
+          "severity": "hard",
+          "where": "end"
+        },
+        {
+          "id": "deadline",
+          "label": "a deadline for the answer",
+          "any": [
+            "\\bon or before\\b",
+            "\\bno later than\\b",
+            "\\bnot later than\\b",
+            "\\bwithin \\S+ (?:\\(\\d+\\) )?(?:clear )?(?:business |working |calendar )?days\\b",
+            "\\bwithin \\[period",
+            "\\bby \\[date",
+            "\\bby \\d{1,2}(?::\\d{2})?\\s?(?:a\\.?m|p\\.?m)",
+            "\\buntil \\[time",
+            "\\buntil \\[date",
+            "\\bopen for acceptance\\b"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "confer",
+          "label": "a proposal to meet and confer, or the deficiency identified",
+          "any": [
+            "\\bmeet[- ]and[- ]confer\\b",
+            "\\bconfer\\b",
+            "\\bdeficien\\w+"
+          ],
+          "severity": "soft",
+          "jurisdictions": [
+            "us-federal",
+            "ca",
+            "wa",
+            "de-superior",
+            "de-chancery"
+          ]
+        }
+      ]
+    },
+    "demand": {
+      "description": "letter before action or demand",
+      "words": {
+        "min": 60,
+        "max": 4000
+      },
+      "require": [
+        {
+          "id": "deadline",
+          "label": "a deadline for payment or performance",
+          "any": [
+            "\\bon or before\\b",
+            "\\bno later than\\b",
+            "\\bnot later than\\b",
+            "\\bwithin \\S+ (?:\\(\\d+\\) )?(?:clear )?(?:business |working |calendar )?days\\b",
+            "\\bwithin \\[period",
+            "\\bby \\[date",
+            "\\bby \\d{1,2}(?::\\d{2})?\\s?(?:a\\.?m|p\\.?m)",
+            "\\buntil \\[time",
+            "\\buntil \\[date",
+            "\\bopen for acceptance\\b"
+          ],
+          "severity": "hard"
+        },
+        {
+          "id": "consequence",
+          "label": "what will follow if the demand is not met",
+          "any": [
+            "\\bproceedings\\b",
+            "\\bcommence\\w*\\b",
+            "\\bsue\\b",
+            "\\blawsuit\\b",
+            "\\bfile (?:suit|a complaint|an action)\\b",
+            "\\blegal action\\b",
+            "\\bwithout further notice\\b"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "reservation",
+          "label": "a reservation of rights",
+          "any": [
+            "\\brights?\\b[^.\\n]{0,80}\\breserved\\b",
+            "\\breserves? (?:all |its |his |her |their |our client'?s'? )?rights?\\b"
+          ],
+          "severity": "soft"
+        }
+      ],
+      "forbid": [
+        {
+          "id": "wp-heading",
+          "label": "a without prejudice heading on a letter before action, which is normally open",
+          "any": [
+            "^\\W*WITHOUT PREJUDICE(?: SAVE AS TO COSTS)?\\W*$"
+          ],
+          "severity": "soft",
+          "case": true
+        }
+      ]
+    },
+    "proposal": {
+      "description": "open, without prejudice, or without prejudice save as to costs proposal",
+      "words": {
+        "min": 60,
+        "max": 5000
+      },
+      "require": [
+        {
+          "id": "status-heading",
+          "label": "the status heading (WITHOUT PREJUDICE, WITHOUT PREJUDICE SAVE AS TO COSTS, OPEN LETTER, or the US settlement-communication marking)",
+          "any": [
+            "^\\W*(?:WITHOUT PREJUDICE(?: SAVE AS TO COSTS)?|OPEN(?: LETTER| PROPOSAL)?|CONFIDENTIAL SETTLEMENT COMMUNICATION|FOR SETTLEMENT PURPOSES ONLY|SUBJECT TO (?:FED\\. R\\. EVID\\. |FRE |RULE )?408)\\b"
+          ],
+          "severity": "hard",
+          "where": "start",
+          "case": true
+        },
+        {
+          "id": "deadline",
+          "label": "a deadline for acceptance",
+          "any": [
+            "\\bon or before\\b",
+            "\\bno later than\\b",
+            "\\bnot later than\\b",
+            "\\bwithin \\S+ (?:\\(\\d+\\) )?(?:clear )?(?:business |working |calendar )?days\\b",
+            "\\bwithin \\[period",
+            "\\bby \\[date",
+            "\\bby \\d{1,2}(?::\\d{2})?\\s?(?:a\\.?m|p\\.?m)",
+            "\\buntil \\[time",
+            "\\buntil \\[date",
+            "\\bopen for acceptance\\b"
+          ],
+          "severity": "hard"
+        },
+        {
+          "id": "no-admission",
+          "label": "a line that the proposal is made without admission of liability",
+          "any": [
+            "\\bwithout (?:any )?admission\\b",
+            "\\bno admission\\b",
+            "\\bnot an admission\\b",
+            "\\bnot (?:be )?(?:construed|treated) as an admission\\b"
+          ],
+          "severity": "soft"
+        }
+      ]
+    },
+    "offer": {
+      "description": "rule-based offer: Hong Kong sanctioned offer under O.22; US offer of judgment under FRCP 68 or the state equivalent",
+      "words": {
+        "min": 60,
+        "max": 5000
+      },
+      "drop": [
+        "references",
+        "re-line",
+        "sign-off"
+      ],
+      "require": [
+        {
+          "id": "sign-off-letter",
+          "label": "a sign-off (Yours faithfully / Yours sincerely)",
+          "any": [
+            "\\byours faithfully\\b",
+            "\\byours sincerely\\b",
+            "^\\W*sincerely(?: yours)?\\W*$",
+            "\\bvery truly yours\\b",
+            "\\byours truly\\b",
+            "^\\W*respectfully(?: submitted| yours)?\\W*$"
+          ],
+          "severity": "hard",
+          "where": "end",
+          "jurisdictions": [
+            "hk"
+          ]
+        },
+        {
+          "id": "signature-offer",
+          "label": "a sign-off, or the signature block of the attorneys making the offer",
+          "any": [
+            "\\byours faithfully\\b",
+            "\\byours sincerely\\b",
+            "^\\W*sincerely(?: yours)?\\W*$",
+            "\\bvery truly yours\\b",
+            "\\byours truly\\b",
+            "^\\W*attorneys? for\\b",
+            "^\\W*counsel for\\b",
+            "^\\W*dated\\s*:"
+          ],
+          "severity": "hard",
+          "where": "end",
+          "jurisdictions": [
+            "us"
+          ]
+        },
+        {
+          "id": "order-22",
+          "label": "a reference to Order 22",
+          "any": [
+            "\\border 22\\b",
+            "\\bO\\.\\s?22\\b"
+          ],
+          "severity": "hard",
+          "jurisdictions": [
+            "hk"
+          ]
+        },
+        {
+          "id": "sanctioned",
+          "label": "the words \"sanctioned offer\" or \"sanctioned payment\"",
+          "any": [
+            "\\bsanctioned (?:offer|payment)\\b"
+          ],
+          "severity": "hard",
+          "jurisdictions": [
+            "hk"
+          ]
+        },
+        {
+          "id": "wpsatc-heading",
+          "label": "the WITHOUT PREJUDICE SAVE AS TO COSTS heading",
+          "any": [
+            "^\\W*WITHOUT PREJUDICE SAVE AS TO COSTS\\W*$"
+          ],
+          "severity": "soft",
+          "where": "start",
+          "case": true,
+          "jurisdictions": [
+            "hk"
+          ]
+        },
+        {
+          "id": "us-offer-rule",
+          "label": "the rule the offer is made under (FRCP 68 or the state equivalent, or [rule] until confirmed)",
+          "any": [
+            "\\brule 68\\b",
+            "\\bR\\. ?Civ\\. ?P\\. 68\\b",
+            "\\bCR 68\\b",
+            "§\\s?998\\b",
+            "\\bsection 998\\b",
+            "\\bCPLR\\s*(?:§\\s*)?322[01]\\b",
+            "\\[rule\\]"
+          ],
+          "severity": "hard",
+          "jurisdictions": [
+            "us"
+          ]
+        },
+        {
+          "id": "us-offer-words",
+          "label": "\"offer of judgment\" or \"offer to compromise\"",
+          "any": [
+            "\\boffer of judgment\\b",
+            "\\boffer to compromise\\b",
+            "\\boffer to allow judgment\\b",
+            "\\boffers? to allow judgment\\b"
+          ],
+          "severity": "soft",
+          "jurisdictions": [
+            "us"
+          ]
+        },
+        {
+          "id": "acceptance-period",
+          "label": "the period for acceptance",
+          "any": [
+            "\\bon or before\\b",
+            "\\bno later than\\b",
+            "\\bnot later than\\b",
+            "\\bwithin \\S+ (?:\\(\\d+\\) )?(?:clear )?(?:business |working |calendar )?days\\b",
+            "\\bwithin \\[period",
+            "\\bby \\[date",
+            "\\bby \\d{1,2}(?::\\d{2})?\\s?(?:a\\.?m|p\\.?m)",
+            "\\buntil \\[time",
+            "\\buntil \\[date",
+            "\\bopen for acceptance\\b"
+          ],
+          "severity": "hard"
+        }
+      ]
+    },
+    "covering": {
+      "description": "covering letter serving a pleading, amendment or bundle",
+      "words": {
+        "min": 30,
+        "max": 3000
+      },
+      "require": [
+        {
+          "id": "enclosed-served",
+          "label": "a statement that a document is enclosed or served",
+          "any": [
+            "\\benclos\\w*\\b",
+            "\\bherewith\\b",
+            "\\battached\\b",
+            "\\bby way of service\\b",
+            "\\bserv(?:e|ed|es|ing|ice)\\b"
+          ],
+          "severity": "hard"
+        },
+        {
+          "id": "acknowledge",
+          "label": "a request to acknowledge receipt, or a certificate or proof of service",
+          "any": [
+            "\\backnowledge (?:receipt|service)\\b",
+            "\\bconfirm receipt\\b",
+            "\\bcertificate of service\\b",
+            "\\bproof of service\\b"
+          ],
+          "severity": "soft"
+        },
+        {
+          "id": "reservation",
+          "label": "a reservation of rights",
+          "any": [
+            "\\brights?\\b[^.\\n]{0,80}\\breserved\\b",
+            "\\breserves? (?:all |its |his |her |their |our client'?s'? )?rights?\\b"
+          ],
+          "severity": "soft"
+        }
+      ]
+    }
+  }
+}
