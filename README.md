@@ -6,6 +6,8 @@ Every skill asks for what it needs, marks anything missing with a plain placehol
 
 The skills install as a plugin in Claude Code, Codex and the ChatGPT desktop app, work as plain skill folders anywhere that reads `SKILL.md`, and can be used from any AI assistant by pointing it at this repository (see [Use with any AI assistant](#use-with-any-ai-assistant)).
 
+**New to AI tools, or not using Claude or Codex?** Start with the plain-language [Getting started guide](GETTING-STARTED.md): what to download, how to set it up in Claude, ChatGPT, Gemini, Perplexity or any other assistant, and how to use it, step by step.
+
 > These skills help lawyers draft. They are not legal advice and do not replace a lawyer's judgement. Check every draft, every authority and the current rules of your court before filing anything.
 
 ## The skills
